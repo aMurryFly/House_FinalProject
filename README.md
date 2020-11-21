@@ -15,4 +15,5 @@ Integrantes del equipo:
 
 ## 🤔 Dudas o comentarios
 
-Para cualquier duda, comentario o bug sin duda reportalo mediante un issue
+1. Para cualquier duda, comentario o bug sin duda reportalo mediante un issue
+2. Para saber los pendientes y aspectos importantes dentro de las decisiones del proyecto checa el kanbas de nuestro proyecto [Kanbas Project](https://github.com/aMurryFly/House_FinalProject/projects/1)
