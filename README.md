@@ -1,12 +1,22 @@
 # ✨ Proyecto Final de Computación Gráfica e Interacción Humano Computadora ✨
 
-## 🚀 General
+## 🚀 About
 
-El presente proyecto es el resultado final de todo lo aprendido tanto en teoría como laboratorio.
+El presente proyecto es el resultado final de todo lo aprendido tanto en teoría como laboratorio.<br>
 Integrantes del equipo: 
-- Alfonso Murrieta Villegas
+
+- [Alfonso Murrieta Villegas](https://github.com/aMurryFly)
 - Sergio Gabriel Reza Chavarría
 - Joaquín Valdespino Mendieta
+
+Descripción de los requisitos del proyecto checa el siguiente pdf [requisitos](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/description.pdf)
+Para ejecutar el proyecto consulte la documentación [pendiente]()
+
+## 💻 Planos 
+
+1. Plano de la casa: <br>
+<img src="https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/planoMedida.jpg" alt="img" style="zoom:50%;" />
+
 
 ## ✅ Referencia y link de apoyo para el proyecto
 
