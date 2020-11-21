@@ -9,7 +9,7 @@ Integrantes del equipo:
 - Sergio Gabriel Reza Chavarría
 - Joaquín Valdespino Mendieta
 
-Descripción de los requisitos del proyecto checa el siguiente pdf [requisitos](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/description.pdf)
+Descripción de los requisitos del proyecto checa el siguiente pdf [requisitos](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/description.pdf)<br>
 Para ejecutar el proyecto consulte la documentación [pendiente]()
 
 ## 💻 Planos 
