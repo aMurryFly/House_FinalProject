@@ -6,7 +6,7 @@ El presente proyecto es el resultado final de todo lo aprendido tanto en teoría
 Integrantes del equipo: 
 
 - [Alfonso Murrieta Villegas](https://github.com/aMurryFly)
-- Sergio Gabriel Reza Chavarría
+- [Sergio Gabriel Reza Chavarría](https://github.com/ResergeDX)
 - Joaquín Valdespino Mendieta
 
 Descripción de los requisitos del proyecto checa el siguiente pdf [requisitos](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/description.pdf)<br>
