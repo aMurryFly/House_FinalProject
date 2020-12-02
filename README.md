@@ -13,7 +13,7 @@ Integrantes del equipo:
 
 - Requisitos y lineamientos del proyecto [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/lineamientos_Profesor.pdf)
 
-- Descripción del proyecto [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/description_propia.md)<br>
+- Descripción del proyecto [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/descripcion_propia.md)<br>
 
 - Presentación del proyecto o [Pitch]()
 
