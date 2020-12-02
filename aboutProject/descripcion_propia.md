@@ -16,7 +16,7 @@ De igual forma cabe destacar y aclarar que pueden surgir cambios mínimos en el 
 ### Diseño del interior
 
 Para el diseño de nuestra casa se tiene contemplado basarse en el siguiente plano arquitectónico:
-<img src="https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/planoGeneral.PNG" alt="img" style="zoom:10%;" />
+<img src="https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/planoGeneral.PNG" alt="img" style="zoom:10%;" /><br>
 del cual prácticamente se respectará todo el diseño estructural salvo por los siguientes aspectos:
 
 1. Los dos baños que se encuentran juntos se convertirán en un solo baño
@@ -28,7 +28,7 @@ contemplar los respectivos muebles y el diseño del interior de la casa.
 ### Diseño del exterior 
 
 Para el diseño del exterior nuestra casa se tiene contemplado basarse en la siguiente imagen:
-<img src="" alt="img" style="zoom:10%;" />
+<img src="https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/CasaProyecto.jpg" alt="img" style="zoom:10%;" /><br>
 
 Como se puede observar el diseño es minimalista y moderno además de que tiene un toque "playero", por ende se emplearán texturas tanto para el camino 
 hacia la casa como para su respectivo cesped. A su vez también es probable que se incluyan algunos árboles para hacer más vistosa la casa.
