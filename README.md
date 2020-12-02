@@ -15,7 +15,7 @@ Integrantes del equipo:
 
 - Descripción del proyecto [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/descripcion_propia.md)<br>
 
-- Presentación del proyecto o [Pitch]()
+- Presentación del proyecto o [Pitch](https://youtu.be/ND7mIb6xAn8)
 
 
 ## 🚀 Manuales y resultados
