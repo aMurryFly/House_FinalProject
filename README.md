@@ -7,7 +7,7 @@ Integrantes del equipo:
 
 - [Alfonso Murrieta Villegas ](https://github.com/aMurryFly)
 - [Sergio Gabriel Reza Chavarría](https://github.com/ResergeDX)
-- Joaquín Valdespino Mendieta
+- [Joaquín Valdespino Mendieta](https://github.com/JoaquinValdespino)
 
 ## 🚀 Acerca del proyecto
 
