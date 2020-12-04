@@ -43,4 +43,13 @@ En este boceto se aprecia la vista general de cómo se vería la sala una vez qu
 1. Para más detalles acerca de las respectivas medidas también puede revisarse el siguiente esquema: 
 <img src="https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/planoMedida.jpg" alt="img" style="zoom:10%;" /><br>
 
+2. Respecto a la cantidad de muebles todavía no se tiene la cantidad exacta, sin embargo, y basandonos en la imagen:<br>
+<img src="https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/planoGeneral.PNG" alt="img" style="zoom:10%;" /><br><br>
+
+Sabemos que por ejemplo:
+1. Los baños tendrán una regadera, un baño y un lavabo
+2. Las recamarás por lo menos tendrán una cama, un ropero o closet , y 2 aspectos que caractericen y diferencien la personalidad de cada integrante del equipo 
+3. La sala tendrá por lo menos 2 sillones y una mesa de centro 
+4. El comedor/cocina, tendrán su mesa, su cocina y además un probable refrigerador
+5. La zona de descanso tendrá al menos 2 sillas y algunas plantas de decoración
 
