@@ -1,26 +1,35 @@
 # ✨ Proyecto Final de Computación Gráfica e Interacción Humano Computadora ✨
 
-## 🚀 About
+## 🚀 General
 
 El presente proyecto es el resultado final de todo lo aprendido tanto en teoría como laboratorio.<br>
 Integrantes del equipo: 
 
 - [Alfonso Murrieta Villegas ](https://github.com/aMurryFly)
 - [Sergio Gabriel Reza Chavarría](https://github.com/ResergeDX)
-- Joaquín Valdespino Mendieta
+- [Joaquín Valdespino Mendieta](https://github.com/JoaquinValdespino)
 
-Descripción de los requisitos del proyecto checa el siguiente pdf [requisitos](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/description.pdf)<br>
-Para ejecutar el proyecto consulte la documentación [pendiente]()
+## 🚀 Acerca del proyecto
 
-## 💻 Planos 
+- Requisitos y lineamientos del proyecto [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/lineamientos_Profesor.pdf)
 
-1. Plano de la casa: <br>
-<img src="https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/planoMedida.jpg" alt="img" style="zoom:50%;" />
+- Descripción del proyecto [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/aboutProject/descripcion_propia.md)<br>
+
+- Presentación del proyecto o [Pitch](https://youtu.be/ND7mIb6xAn8)
 
 
-## ✅ Referencia y link de apoyo para el proyecto
+## 🚀 Manuales y resultados
+
+- Para compilar el proyecto consulte el manual de compilación [pendiente]()
+
+- Para ejecutar el proyecto consulte el manual de usuario [pendiente]()
+
+- Video de funcionamiento y de uso [pendiente]()
+
+## ✅ Documentación y links de referencia 
 
 1. [Diseño de la casa](https://verplanos.com/plano-de-casa-grande-con-piscina-de-estilo-mediterraneo/)
+2. Herramienta de diseño arquitectónico: [Floorplanner](https://www.floorplanner.com/)
 
 
 ## 🤔 Dudas o comentarios
