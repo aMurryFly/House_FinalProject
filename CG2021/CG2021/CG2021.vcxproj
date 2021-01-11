@@ -142,14 +142,24 @@
     <None Include="shaders\shader_texture_color.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Base_Molino.cpp" />
+    <ClCompile Include="cilindro.cpp" />
+    <ClCompile Include="Circunferencia.cpp" />
+    <ClCompile Include="cono.cpp" />
     <ClCompile Include="Cubo.cpp" />
+    <ClCompile Include="Helice.cpp" />
     <ClCompile Include="Plano.cpp" />
     <ClCompile Include="ProyectoFinal.cpp" />
     <ClCompile Include="ParedV.cpp" />
     <ClCompile Include="Puerta.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base_molino.h" />
+    <ClInclude Include="cilindro.h" />
+    <ClInclude Include="Circunferencia.h" />
+    <ClInclude Include="cono.h" />
     <ClInclude Include="Cubo.h" />
+    <ClInclude Include="Helice.h" />
     <ClInclude Include="ParedV.h" />
     <ClInclude Include="Plano.h" />
     <ClInclude Include="Puerta.h" />

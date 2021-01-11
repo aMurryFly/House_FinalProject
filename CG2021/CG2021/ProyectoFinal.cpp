@@ -7,6 +7,13 @@ Valdespino Mendieta Joaquin
 
 */
 #define STB_IMAGE_IMPLEMENTATION
+//Primitivas
+
+#include "cono.h"
+#include "cilindro.h"
+#include "Circunferencia.h"
+#include "Base_molino.h"
+#include "Helice.h"
 #include "camera.h"
 #include "Plano.h"
 #include "ParedV.h"
@@ -30,10 +37,19 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 
 //Primitivas
+//Casa
 Plano plane(1.0f);
 ParedV pared(1.0f);
 Puerta puerta(1.0f);
 Cubo cube(1.0f);
+
+//Molino
+Cilindro cylinder(0.5f, 1.0f);
+Cono cone(0.5f, 1.0f);
+Base_Molino base(1.0f);
+Circunferencia circ(0.5f);
+Helice hel(1.0f);
+
 
 // settings
 // Window size
@@ -69,10 +85,27 @@ float	movX = 0.0f,
 		movY = 0.0f,
 		movZ = -5.0f,
 		rotX = 0.0f;
+
+//For animations
+float giroHelices = 0.0f;
+
+
+bool animationMolino=false;
 //Obnjetos
 
 //Texture
-unsigned int	 t_pared, t_piso, t_interior, t_bath, t_lavado,t_jardin, t_techo,t_suelo,t_garage,t_sala,t_pasto;
+unsigned int	 t_pared, 
+t_piso, 
+t_interior, 
+t_bath, 
+t_lavado,
+t_jardin, 
+t_techo,
+t_suelo,
+t_garage,
+t_sala,
+t_pasto,
+t_maderaB;
 
 unsigned int generateTextures(const char* filename, bool alfa)
 {
@@ -124,6 +157,7 @@ void LoadTextures()
 	t_garage = generateTextures("resources/Textures/garage.jpg", 0);
 	t_sala = generateTextures("resources/Textures/sala.jpg", 0);
 	t_pasto = generateTextures("resources/Textures/pasto.jpg", 0);
+	t_maderaB= generateTextures("resources/Textures/maderablanca.jpg", 0);
 }
 
 void getResolution()
@@ -148,6 +182,11 @@ void myData()
 		40.0f,	0.0f, -40.0f,   15.0f, 15.0f, // bottom right
 		-40.0f,  0.0f, -40.0f,   0.0f, 15.0f, // bottom left
 		-40.0f,  0.0f, 40.0f,   0.0f, 0.0f,  // top left 
+
+		1.0f, 0.0f, 1.0f,			1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, -1.0f,		1.0f, 0.0f, 0.0f,
+		-1.0f, 0.0f, -1.0f,		1.0f, 0.0f, 0.0f,
+		-1.0f, 0.0f,	1.0f,		1.0f, 0.0f, 0.0f,
 
 		
 
@@ -182,7 +221,12 @@ void myData()
 
 void animate(void)
 {
-
+	if (animationMolino == true) {
+		if (giroHelices < 360)
+			giroHelices += 0.5f;
+		else
+			giroHelices = 0.0f;
+	}
 }
 
 void display(Shader shader)
@@ -1083,6 +1127,13 @@ void display(Shader shader)
 	glBindTexture(GL_TEXTURE_2D, t_techo);
 	cube.render();
 
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(19.8f, 5.1f, -25.0f));
+	model = glm::scale(model, glm::vec3(0.4f, 0.2f, 10.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	glBindTexture(GL_TEXTURE_2D, t_techo);
+	cube.render();
 
 	//--------------------------------Techo Parte interna---------------------------
 	//Cuarto Alfonso
@@ -1183,13 +1234,113 @@ void display(Shader shader)
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(4.5f, 4.9f, -24.0f));
 	
-	model = glm::scale(model, glm::vec3(9.0f, 0.2f, 8.0f));
+	model = glm::scale(model, glm::vec3(8.9f, 0.2f, 7.9f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, t_jardin);
 	cube.render();
 
+	/*--------------------------------------------------------------------------------------*/
+	/*-----------------------Sección de muebles y objetos-----------------------------------*/
+	/*--------------------------------------------------------------------------------------*/
 
+
+	//Molino
+	glm::mat4 tmp = glm::mat4(1.0f);
+	glm::mat4 tmp2 = glm::mat4(1.0f);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(18.5f,0.1f,-29.0f));
+	model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
+
+
+	shader.setVec3("aColor", glm::vec3(0.5f, 0.5f, 0.5f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_QUADS, 4, 8);
+
+	//Cilindro molino
+	//Traslación (0,2.5,0)
+	//Escala(4.75,5,4.75)
+
+	tmp = model = glm::translate(model, glm::vec3(0.0f, 2.5f, 0.0f));
+	model = glm::scale(model, glm::vec3(4.75f, 5.0f, 4.75f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.8353f, 0.7294f, 0.545f));
+	glBindTexture(GL_TEXTURE_2D, t_maderaB);
+	cylinder.render();
+
+	//Cono Techo
+	//Traslación y=4.0 (El centro del cono está en la punta)
+	//Escala (4.75,1.5,4.75)
+
+	tmp = model = glm::translate(tmp, glm::vec3(0.0f, 2.5f, 0.0f));
+	model = glm::scale(model, glm::vec3(4.75f, 1.5f, 4.75f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.1686f, 0.1372f, 0.09411f));
+	glBindTexture(GL_TEXTURE_2D, t_maderaB);
+	cone.render();
+
+
+	//Parte de engranajes de molino
+	tmp = model = glm::translate(tmp, glm::vec3(0.0f, 0.5f, 1.375f));
+	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 2.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.5f, 0.5f, 0.5f));
+	glBindTexture(GL_TEXTURE_2D, t_maderaB);
+	base.render();
+
+	//Cilindro
+
+	//Punto de giro
+	model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, 0.5f));
+	model = glm::rotate(model, glm::radians(giroHelices), glm::vec3(0.0f, 0.0f, 1.0f));
+	tmp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.5f));
+	model = glm::scale(model, glm::vec3(0.5f, 0.5f, 2.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.9f, 0.5f, 0.0f));
+	glBindTexture(GL_TEXTURE_2D, t_maderaB);
+	cylinder.render();
+
+	model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(0.5f, 0.5f, 2.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.9f, 0.5f, 0.0f));
+	glBindTexture(GL_TEXTURE_2D, t_maderaB);
+	circ.render();
+
+	//Helices
+	tmp2 = model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, 0.5f));
+
+
+	model = glm::translate(tmp2, glm::vec3(-0.125f, 0.125f, 0.0f));
+	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(1.0f, 4.0f, 1.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.54f, 0.0f, 0.0f));
+	hel.render();
+
+	model = glm::translate(tmp2, glm::vec3(-0.125f, -0.125f, 0.0f));
+	model = glm::rotate(model, glm::radians(135.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(1.0f, 4.0f, 1.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.54f, 0.0f, 0.0f));
+	hel.render();
+
+	model = glm::translate(tmp2, glm::vec3(0.125f, -0.125f, 0.0f));
+	model = glm::rotate(model, glm::radians(225.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(1.0f, 4.0f, 1.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.54f, 0.0f, 0.0f));
+	hel.render();
+
+	model = glm::translate(tmp2, glm::vec3(0.125f, 0.125f, 0.0f));
+	model = glm::rotate(model, glm::radians(315.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(1.0f, 4.0f, 1.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", glm::vec3(0.54f, 0.0f, 0.0f));
+	hel.render();
 	
 
 
@@ -1242,6 +1393,12 @@ int main()
 	pared.init();
 	puerta.init();
 	cube.init();
+
+	hel.init();
+	cone.init();
+	cylinder.init();
+	circ.init();
+	base.init();
 
 
 
@@ -1299,14 +1456,24 @@ void my_input(GLFWwindow *window)
 		glfwSetWindowShouldClose(window, true);
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(FORWARD, (float)deltaTime*0.5);
+		camera.ProcessKeyboard(FORWARD, (float)deltaTime*0.2);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, (float)deltaTime*0.5);
+		camera.ProcessKeyboard(BACKWARD, (float)deltaTime*0.2);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, (float)deltaTime*0.5);
+		camera.ProcessKeyboard(LEFT, (float)deltaTime*0.2);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, (float)deltaTime*0.5);
-	
+		camera.ProcessKeyboard(RIGHT, (float)deltaTime*0.2);
+
+
+	//Animaciones
+	/*--Animacion 1 Molino--*/
+	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+		animationMolino = true;
+	}
+	//Detener animacion molino
+	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+		animationMolino = false;
+	}
 
 }
 
