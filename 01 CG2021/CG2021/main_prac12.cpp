@@ -227,7 +227,7 @@ void animate(void)
 	}
 }
 
-void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Model pared, Model ventana, Model bath, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo)
+void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model piso, Model pared, Model ventana, Model bath, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo)
 
 {
 	shader.use();
@@ -296,7 +296,15 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 	shader.setMat4("projection", projection);
 
 
-	//Paredes
+	//PISO GLOBAL
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 0.0f));
+	model = glm::scale(model, glm::vec3(100.0f));
+	shader.setMat4("model", model);
+	pastoExt.Draw(shader);
+
+	//PISO 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.2f));
@@ -1560,7 +1568,7 @@ int main()
 
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Practica 12", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Proyecto final", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -1615,6 +1623,7 @@ int main()
 
 	// load models
 	// -----------
+	Model pastoExt("resources/objects/Texplanes/pasto.fbx");
 	Model piso("resources/objects/piso/piso.obj");
 	Model pared_ext("resources/objects/Texplanes/pared.fbx");
 	Model ventana("resources/objects/Ventana/ventana4.fbx");
@@ -1668,7 +1677,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		
-		display(staticShader, skyboxShader ,skybox,piso,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo);
+		display(staticShader, skyboxShader ,skybox, pastoExt, piso,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo);
 
 
 
