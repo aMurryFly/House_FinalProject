@@ -1,12 +1,10 @@
 
-/*Proyecto Fina Computación Gráfica
+/*
+Proyecto Final Computación Gráfica
 Alumnos:
-Murrieta Villegas Alfonso
-Reza Chavarria Sergio Gabriel
-Valdespino Mendieta Joaquin
-
-
-
+	Murrieta Villegas Alfonso
+	Reza Chavarria Sergio Gabriel
+	Valdespino Mendieta Joaquin
 */
 #include <glad/glad.h>
 #include <glfw3.h>	//main
@@ -60,9 +58,6 @@ double	deltaTime = 0.0f,
 glm::vec3 lightPosition(0.0f, 4.0f, -10.0f);
 glm::vec3 lightDirection(0.0f, -1.0f, -1.0f);
 
-// posiciones
-//float x = 0.0f;
-//float y = 0.0f;
 float	movAuto_x = 0.0f,
 		movAuto_z = 0.0f,
 		orienta = 0.0f;
@@ -86,7 +81,6 @@ float	incX = 0.0f,
 		giroMonitoInc = 0.0f;
 
 
-void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Model pared, Model ventana, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo);
 
 #define MAX_FRAMES 9
 int i_max_steps = 60;
@@ -228,8 +222,8 @@ void animate(void)
 }
 
 void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath,
-	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro)
-
+	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
+	 Model street)
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -297,7 +291,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//Palms
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 10.0f));
+	model = glm::translate(model, glm::vec3(20.0f, -2.5f, -10.0f));
 	model = glm::scale(model, glm::vec3(0.2f));
 	shader.setMat4("model", model);
 	palm.Draw(shader);
@@ -320,6 +314,32 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("model", model);
 	palm.Draw(shader);
 
+	//palm right
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-10.0f, -2.5f, -10.0f));
+	model = glm::scale(model, glm::vec3(0.2f));
+	shader.setMat4("model", model);
+	palm.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-10.0f, -2.5f, 5.0f));
+	model = glm::scale(model, glm::vec3(0.2f));
+	shader.setMat4("model", model);
+	palm.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-10.0f, -2.5f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.2f));
+	shader.setMat4("model", model);
+	palm.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-10.0f, -2.5f, -5.0f));
+	model = glm::scale(model, glm::vec3(0.2f));
+	shader.setMat4("model", model);
+	palm.Draw(shader);
+
+
 	//Carro
 	model = glm::mat4(1.0f);
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -329,12 +349,8 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	carro.Draw(shader);
 
 
-	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
-
-
-
 	//PASTO GLOBAL
-	
+
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 0.0f));
 	model = glm::scale(model, glm::vec3(300.0f));
@@ -346,31 +362,77 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(10.0f, -2.4f, 5.0f));
-//	model = glm::translate(temp, glm::vec3(10.0f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
 	shader.setMat4("model", model);
 	garage.Draw(shader);
 
 
+	//CALLE 
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(15.0f, -2.4f, -5.0f));
+	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 1.0f));
+	shader.setMat4("model", model);
+	garage.Draw(shader);
+
+	//STREET
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(85.0f, -2.4f, 16.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.24f, 0.01f, 0.8f));
+	shader.setMat4("model", model);
+	street.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-35.0f, -2.3f, 16.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.24f, 0.01f, 0.8f));
+	shader.setMat4("model", model);
+	street.Draw(shader);
+
+
+	//------------------------------------------------------------------Cocina - Comedor- Sala ----------------------------------------------------------------------------------------//
+
+	
+	//cocina integral
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(18.0f, -2.4f, -24.0f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	model = glm::scale(model, glm::vec3(0.002f, 0.0022f, 0.002f));
+	shader.setMat4("model", model);
+	cocina.Draw(shader);
+	
+
+	
+
+
+	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
 
 	//-------------------------------------------Pared 1----------------------------------------------------------//
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::mat4(1.0f);
 	temp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(10.0f, 5.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
+	paredv2.Draw(shader);
+	glEnable(GL_BLEND);
 
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.3f));
 	model = glm::scale(model, glm::vec3(10.0f, 5.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
+	paredv1.Draw(shader);
+	glEnable(GL_BLEND);
 
 	//Ventana
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-50.0f, 0.0f, 0.0f));
 	model = glm::mat4(1.0f);
 	temp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.15f));
 	model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
@@ -378,6 +440,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	ventana.Draw(shader);
+	glEnable(GL_BLEND);
 
 
 
@@ -1594,19 +1657,13 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 int main()
 {
-	// glfw: initialize and configure
-	// ------------------------------
+
 	glfwInit();
-	/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
 
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-	// glfw window creation
-	// --------------------
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Proyecto final", NULL, NULL);
 	if (window == NULL)
 	{
@@ -1619,26 +1676,17 @@ int main()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetKeyCallback(window, my_input);
-
-	// tell GLFW to capture our mouse
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
 
-	// configure global opengl state
-	// -----------------------------
 	glEnable(GL_DEPTH_TEST);
 	
-
-	// build and compile shaders
-	// -------------------------
-	//Shader staticShader("Shaders/lightVertex.vs", "Shaders/lightFragment.fs");
 	Shader staticShader("Shaders/shader_Lights.vs", "Shaders/shader_Lights.fs");
 	Shader skyboxShader("Shaders/skybox.vs", "Shaders/skybox.fs");
 	Shader animShader("Shaders/anim.vs", "Shaders/anim.fs");
@@ -1656,11 +1704,11 @@ int main()
 	Skybox skybox = Skybox(faces);
 
 	// Shader configuration
-	// --------------------
 	skyboxShader.use();
 	skyboxShader.setInt("skybox", 0);
 
-	// load models
+	//LOAD MODELS
+
 	//HOUSE MODELS - TEXTURES
 	Model pastoExt("resources/objects/Texplanes/pasto.fbx");
 	Model pared_ext("resources/objects/Texplanes/pared.fbx");
@@ -1675,11 +1723,19 @@ int main()
 	Model suelo("resources/objects/Texplanes/suelo.fbx");
 	Model techo("resources/objects/Texplanes/marc.fbx");
 
+	//Ventanas
+	Model paredv1("resources/objects/Texplanes/paredintv.fbx");
+	Model paredv2("resources/objects/Texplanes/paredvent.fbx");
+
 	//MODELS -EXTER
 	Model palm("resources/objects/exterior/palmera/palm.fbx");
-	Model carro("resources/objects/exterior/carro_tex-obj/swift.obj");
+	Model carro("resources/objects/exterior/carro/carro.fbx");
+	Model street("resources/objects/exterior/calle/calle13.fbx");
 
 
+
+	//MODELS COMEDOR - COCINA - SALA
+	Model cocina("resources/objects/cocina/cocinaInt/cocina.fbx");
 
 	//Inicialización de KeyFrames
 	for (int i = 0; i < MAX_FRAMES; i++)
@@ -1714,26 +1770,18 @@ int main()
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// don't forget to enable shader before setting uniforms
 	
-		// -------------------------------------------------------------------------------------------------------------------------
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
-		
-		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, carro);
+		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, carro, cocina, paredv1, paredv2, street);
 
 
-
-		// Limitar el framerate a 60
-		deltaTime = SDL_GetTicks() - lastFrame; // time for full 1 loop
-		//std::cout <<"frame time = " << frameTime << " milli sec"<< std::endl;
+		deltaTime = SDL_GetTicks() - lastFrame; 
 		if (deltaTime < LOOP_TIME)
 		{
 			SDL_Delay((int)(LOOP_TIME - deltaTime));
 		}
 
-		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
