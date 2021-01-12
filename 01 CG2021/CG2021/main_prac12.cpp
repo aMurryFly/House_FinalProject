@@ -86,7 +86,7 @@ float	incX = 0.0f,
 		giroMonitoInc = 0.0f;
 
 
-void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Model pared, Model ventana, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo);
+void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Model pared, Model ventana, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo);
 
 #define MAX_FRAMES 9
 int i_max_steps = 60;
@@ -227,7 +227,7 @@ void animate(void)
 	}
 }
 
-void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Model pared, Model ventana, Model bath, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo)
+void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Model pared, Model ventana, Model bath, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo)
 
 {
 	shader.use();
@@ -724,7 +724,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 	//-------------------------------------------Pared 12----------------------------------------------------------//
 
 	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -20.0f));
+	temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -19.8f));
 	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
@@ -805,11 +805,11 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 
 
 	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, -0.5f, -20.1f));
+	temp = model = glm::translate(model, glm::vec3(7.0f, 0.0f, -19.9f));
 
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.2f, 1.0f, 4.0f));
+	model = glm::scale(model, glm::vec3(0.2f, 1.0f, 5.0f));
 
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
@@ -841,6 +841,8 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	pared_interior.Draw(shader);
+
+
 
 	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
 
@@ -884,7 +886,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 	//-------------------------------------------Pared 14 y 15----------------------------------------------------------//
 
 	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(12.5f, 2.0f, -21.0f));
+	temp = model = glm::translate(model, glm::vec3(12.3f, 2.0f, -21.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
@@ -903,7 +905,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 
 
 	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(12.5f, 0.0f, -23.0f));
+	temp = model = glm::translate(model, glm::vec3(12.3f, 0.0f, -23.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 5.0f));
@@ -913,7 +915,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 
 
 	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(12.5f, 0.0f, -27.0f));
+	temp = model = glm::translate(model, glm::vec3(12.3f, 0.0f, -27.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	model =glm::scale(model, glm::vec3(6.0f, 1.0f, 5.0f));
@@ -922,7 +924,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 	bath.Draw(shader);
 
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(12.7f, 0.0f, -26.0f));
+	model = glm::translate(model, glm::vec3(12.5f, 0.0f, -26.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
@@ -1146,7 +1148,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 	pared_interior.Draw(shader);
 
 	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, -0.5f, -30.1f));
+	temp = model = glm::translate(model, glm::vec3(7.0f, -0.5f, -29.9f));
 
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -1223,6 +1225,17 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	garage.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(0.0f, -2.40f, 0.0f));
+	model = glm::translate(temp, glm::vec3(9.85f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(9.7f, 0.2, 1.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	garage.Draw(shader);
+
+	
 
 	//Sala Comedor
 
@@ -1449,16 +1462,80 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model piso, Mode
 	//Piscina
 
 
-
-
-
 	model = glm::mat4(1.0f);
 	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
 	model = glm::translate(temp, glm::vec3(2.5f, -0.1f, -30.0f));
 	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 4.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	garage.Draw(shader);
+	jardin.Draw(shader);
+
+
+	//Techo Exterior
+
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+	model = glm::translate(temp, glm::vec3(10.0f, 0.0f, -10.0f));
+	model = glm::scale(model, glm::vec3(20.0f, 0.2f, 20.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
+
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+	model = glm::translate(temp, glm::vec3(8.75f, 0.0f, -24.0f));
+	model = glm::scale(model, glm::vec3(17.5f, 0.2f, 8.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
+
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+	model = glm::translate(temp, glm::vec3(13.0f, 0.0f, -35.0f));
+	model = glm::scale(model, glm::vec3(14.0f, 0.2f, 10.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
+
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+	model = glm::translate(temp, glm::vec3(11.75f, 0.0f, -29.0f));
+	model = glm::scale(model, glm::vec3(11.5f, 0.2f, 2.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
+
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+	model = glm::translate(temp, glm::vec3(0.1f, 0.0f, -34.0f));
+	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 12.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
+
+	
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+	model = glm::translate(temp, glm::vec3(3.0f, 0.0f, -39.85f));
+	model = glm::scale(model, glm::vec3(6.0f, 0.2f, 0.3f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
+
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+	model = glm::translate(temp, glm::vec3(19.85f, 0.0f, -25.0f));
+	model = glm::scale(model, glm::vec3(0.3f, 0.2f, 10.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
 
 
 	//Skybox
@@ -1542,7 +1619,7 @@ int main()
 	Model pared_ext("resources/objects/Texplanes/pared.fbx");
 	Model ventana("resources/objects/Ventana/ventana4.fbx");
 
-	Model bath("resources/objects/Texplanes/bano.fbx");
+	Model bath("resources/objects/Texplanes/mosaic.fbx");
 	Model garage("resources/objects/Texplanes/garage.fbx");
 	Model jardin("resources/objects/Texplanes/jardin.fbx");
 	Model lavado("resources/objects/Texplanes/lavado.fbx");
@@ -1550,6 +1627,7 @@ int main()
 	Model pared_interior("resources/objects/Texplanes/pared_interior.fbx");
 	Model pasto("resources/objects/Texplanes/pasto.fbx");
 	Model suelo("resources/objects/Texplanes/suelo.fbx");
+	Model techo("resources/objects/Texplanes/techom.fbx");
 
 	//Inicialización de KeyFrames
 	for (int i = 0; i < MAX_FRAMES; i++)
@@ -1590,7 +1668,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		
-		display(staticShader, skyboxShader ,skybox,piso,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo);
+		display(staticShader, skyboxShader ,skybox,piso,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo);
 
 
 
