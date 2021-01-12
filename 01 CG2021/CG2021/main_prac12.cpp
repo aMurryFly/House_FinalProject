@@ -227,7 +227,7 @@ void animate(void)
 	}
 }
 
-void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model piso, Model pared, Model ventana, Model bath, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo)
+void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo)
 
 {
 	shader.use();
@@ -296,21 +296,23 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("projection", projection);
 
 
-	//PISO GLOBAL
-
+	//PASTO GLOBAL
+	
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 0.0f));
-	model = glm::scale(model, glm::vec3(100.0f));
+	model = glm::scale(model, glm::vec3(300.0f));
 	shader.setMat4("model", model);
 	pastoExt.Draw(shader);
 
-	//PISO 
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	piso.Draw(shader);
 
+	//PISO 
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(10.0f, -2.4f, 5.0f));
+//	model = glm::translate(temp, glm::vec3(10.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
+	shader.setMat4("model", model);
+	garage.Draw(shader);
 
 
 
@@ -1624,7 +1626,6 @@ int main()
 	// load models
 	// -----------
 	Model pastoExt("resources/objects/Texplanes/pasto.fbx");
-	Model piso("resources/objects/piso/piso.obj");
 	Model pared_ext("resources/objects/Texplanes/pared.fbx");
 	Model ventana("resources/objects/Ventana/ventana4.fbx");
 
@@ -1636,7 +1637,7 @@ int main()
 	Model pared_interior("resources/objects/Texplanes/pared_interior.fbx");
 	Model pasto("resources/objects/Texplanes/pasto.fbx");
 	Model suelo("resources/objects/Texplanes/suelo.fbx");
-	Model techo("resources/objects/Texplanes/techom.fbx");
+	Model techo("resources/objects/Texplanes/marc.fbx");
 
 	//Inicialización de KeyFrames
 	for (int i = 0; i < MAX_FRAMES; i++)
@@ -1677,7 +1678,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		
-		display(staticShader, skyboxShader ,skybox, pastoExt, piso,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo);
+		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo);
 
 
 
