@@ -227,7 +227,8 @@ void animate(void)
 	}
 }
 
-void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath, Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo)
+void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath,
+	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro)
 
 {
 	shader.use();
@@ -287,13 +288,49 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("view", view);
 	shader.setMat4("projection", projection);
 
-
-	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
-
-
 	shader.setMat4("model", model);
 	shader.setMat4("view", view);
 	shader.setMat4("projection", projection);
+
+	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
+
+
+	//Palms
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 10.0f));
+	model = glm::scale(model, glm::vec3(0.2f));
+	shader.setMat4("model", model);
+	palm.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 5.0f));
+	model = glm::scale(model, glm::vec3(0.2f));
+	shader.setMat4("model", model);
+	palm.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.2f));
+	shader.setMat4("model", model);
+	palm.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(20.0f, -2.5f, -5.0f));
+	model = glm::scale(model, glm::vec3(0.2f));
+	shader.setMat4("model", model);
+	palm.Draw(shader);
+
+	//Carro
+	model = glm::mat4(1.0f);
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(11.0f, -1.0f, -0.5f));
+	model = glm::scale(model, glm::vec3(0.07f));
+	shader.setMat4("model", model);
+	carro.Draw(shader);
+
+
+	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
+
 
 
 	//PASTO GLOBAL
@@ -1624,11 +1661,10 @@ int main()
 	skyboxShader.setInt("skybox", 0);
 
 	// load models
-	// -----------
+	//HOUSE MODELS - TEXTURES
 	Model pastoExt("resources/objects/Texplanes/pasto.fbx");
 	Model pared_ext("resources/objects/Texplanes/pared.fbx");
 	Model ventana("resources/objects/Ventana/ventana4.fbx");
-
 	Model bath("resources/objects/Texplanes/mosaic.fbx");
 	Model garage("resources/objects/Texplanes/garage.fbx");
 	Model jardin("resources/objects/Texplanes/jardin.fbx");
@@ -1638,6 +1674,12 @@ int main()
 	Model pasto("resources/objects/Texplanes/pasto.fbx");
 	Model suelo("resources/objects/Texplanes/suelo.fbx");
 	Model techo("resources/objects/Texplanes/marc.fbx");
+
+	//MODELS -EXTER
+	Model palm("resources/objects/exterior/palmera/palm.fbx");
+	Model carro("resources/objects/exterior/carro_tex-obj/swift.obj");
+
+
 
 	//Inicialización de KeyFrames
 	for (int i = 0; i < MAX_FRAMES; i++)
@@ -1678,7 +1720,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		
-		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo);
+		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, carro);
 
 
 
@@ -1709,13 +1751,13 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(FORWARD, (float)deltaTime*0.2);
+		camera.ProcessKeyboard(FORWARD, (float)deltaTime*0.005);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, (float)deltaTime*0.2);
+		camera.ProcessKeyboard(BACKWARD, (float)deltaTime*0.005);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, (float)deltaTime*0.2);
+		camera.ProcessKeyboard(LEFT, (float)deltaTime*0.005);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, (float)deltaTime*0.2);
+		camera.ProcessKeyboard(RIGHT, (float)deltaTime*0.005);
 	//To Configure Model
 	if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
 		posZ++;
