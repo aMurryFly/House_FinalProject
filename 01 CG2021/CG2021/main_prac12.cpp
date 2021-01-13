@@ -20,7 +20,6 @@ Alumnos:
 
 #define SDL_MAIN_HANDLED
 #include <SDL/SDL.h>
-
 #include <shader_m.h>
 #include <camera.h>
 #include <modelAnim.h>
@@ -28,7 +27,10 @@ Alumnos:
 #include <Skybox.h>
 #include <iostream>
 
+//Para music and sound
 //#pragma comment(lib, "winmm.lib")
+//Global variable for sound
+bool musicOn = false;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -88,6 +90,13 @@ int FrameIndex = 6;			//introducir datos
 bool play = false;
 int playIndex = 0;
 
+/*
+void sound(void) {
+	if (musicOn) {
+		bool played = PlaySound("resources/music/kda_illshowyou.mp3", NULL, SND_LOOP | SND_ASYNC);
+		musicOn = false;
+	}
+}*/
 
 void saveFrame(void)
 {
@@ -121,8 +130,6 @@ void interpolation(void)
 	
 
 }
-
-
 
 void animate(void)
 {
@@ -1849,13 +1856,13 @@ int main()
 	KeyFrame[3].posCarZ = -0.5f;
 	KeyFrame[3].rotCarY = 0.0f;
 
-	KeyFrame[4].posCarX = 14.0f;
+	KeyFrame[4].posCarX = 17.0f;
 	KeyFrame[4].posCarY = -16.0f;
 	KeyFrame[4].posCarZ = -0.5f;
 	KeyFrame[4].rotCarY = 0.0f;
 
-	KeyFrame[5].posCarX = 14.0f;
-	KeyFrame[5].posCarY = 10.0f;
+	KeyFrame[5].posCarX = -60.0f;
+	KeyFrame[5].posCarY = -15.0f;
 	KeyFrame[5].posCarZ = -0.5f;
 	KeyFrame[5].rotCarY = 0.0f;
 
@@ -1899,6 +1906,7 @@ int main()
 		glfwPollEvents();
 	}
 
+	//sound();
 	skybox.Terminate();
 
 	glfwTerminate();
@@ -1919,6 +1927,10 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		camera.ProcessKeyboard(LEFT, (float)deltaTime*0.005);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime*0.005);
+
+	//For music start
+	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+		musicOn = true;
 
 	//To play KeyFrame animation 
 	if (key == GLFW_KEY_P && action == GLFW_PRESS)
