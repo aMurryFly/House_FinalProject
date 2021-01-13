@@ -162,7 +162,7 @@ void animate(void)
 
 void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
-	 Model street, Model sofaMesa, Model lavadora, Model cameraObj, Model ttv)
+	 Model street, Model sofaMesa, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer)
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -333,9 +333,6 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("model", model);
 	pared_interior.Draw(shader);
 
-
-
-
 	//STREET
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(85.0f, -2.4f, 16.0f));
@@ -365,12 +362,26 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//tv-mueble
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-3.5f, -2.3f, -15.0f));
+	model = glm::translate(model, glm::vec3(-3.5f, -2.3f, -14.5f));
 	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, .0f));
 	model = glm::scale(model, glm::vec3(0.35f));
 	shader.setMat4("model", model);
 	ttv.Draw(shader);
 
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(8.5f, -2.3f, -15.0f));
+	model = glm::scale(model, glm::vec3(2.3f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	shader.setMat4("model", model);
+	mesaComer.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(2.5f, -2.3f, -14.0f));
+	model = glm::scale(model, glm::vec3(0.02f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	shader.setMat4("model", model);
+	sofa.Draw(shader);
 
 
 	//------------------------------------------------------------------PSICINA - EXT ----------------------------------------------------------------------------------------//
@@ -1797,7 +1808,10 @@ int main()
 	Model lavadora("resources/objects/piscinaLavanderia/lavadora/wash_mashine2.fbx");
 	Model cameraObj("resources/objects/piscinaLavanderia/camera/cameratext.fbx");
 	Model ttv("resources/objects/sala/tele/ttv.fbx");
-	
+
+	//Mesa-barra y sala
+	Model sofa("resources/objects/sala/salita/sala4.obj");
+	Model mesaComer("resources/objects/cocina/comedor/comedor.fbx");
 	
 
 
@@ -1872,7 +1886,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
-			carro, cocina, paredv1, paredv2, street, sofaMesa, lavadora, cameraObj, ttv);
+			carro, cocina, paredv1, paredv2, street, sofaMesa, lavadora, cameraObj, ttv, sofa, mesaComer);
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
