@@ -1,4 +1,3 @@
-
 /*
 Proyecto Final Computación Gráfica
 Alumnos:
@@ -216,9 +215,10 @@ void animate(void)
 
 }
 
-void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath,
+void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
-	 Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA)
+	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA,
+	Model puertas, Model wc, Model banera, Model lavamanos)
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -283,7 +283,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
 
-	
+
 	//Palms
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(20.0f, -2.5f, -10.0f));
@@ -407,7 +407,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//------------------------------------------------------------------Cocina - Comedor- Sala ----------------------------------------------------------------------------------------//
 
-	
+
 	//cocina integral
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(18.0f, -2.4f, -24.0f));
@@ -438,6 +438,65 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
 	shader.setMat4("model", model);
 	sofa.Draw(shader);
+
+
+	/*-----------------------------------------------------------------BAÑOS--------------------------------------------------------------------------------------------*/
+	//Baño 1
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-6.0f, -2.5f, -6.0f));
+	model = glm::translate(temp, glm::vec3(-1.0f, 0.0f, -4.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 2.1f, 2.0f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	shader.setMat4("model", model);
+	wc.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
+	model = glm::translate(model, glm::vec3(-3.75f, 0.0f, -8.0f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.025f, 0.0175f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	banera.Draw(shader);
+
+	//Lavamanos
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	model = glm::translate(temp, glm::vec3(-0.1f, -0.5f, -7.0f));
+	model = glm::scale(model, glm::vec3(0.025f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	shader.setMat4("model", model);
+	lavamanos.Draw(shader);
+
+
+	//Baño 2
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-6.0f, -2.5f, -6.0f));
+	model = glm::translate(temp, glm::vec3(15.5f, 0.0f, -25.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 2.1f, 2.0f));
+	model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	wc.Draw(shader);
+
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
+	model = glm::translate(model, glm::vec3(11.0f, 0.0f, -26.0f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.025f, 0.0175f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	banera.Draw(shader);
+
+	//Lavamanos
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	model = glm::translate(temp, glm::vec3(9.25f, -1.0f, -24.25f));
+	model = glm::scale(model, glm::vec3(0.025f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	shader.setMat4("model", model);
+	lavamanos.Draw(shader);
+
 
 
 	//------------------------------------------------------------------PSICINA - EXT ----------------------------------------------------------------------------------------//
@@ -515,7 +574,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	/*-------------------------------------------Objetos Cuartos----------------------------------------------*/
 
-
+	
 	//Camas
 	model = glm::mat4(1.0f);
 	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
@@ -542,7 +601,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	camaA.Draw(shader);
-
+	
 	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
 
 	//-------------------------------------------Pared 1----------------------------------------------------------//
@@ -1943,9 +2002,24 @@ int main()
 
 
 	//Camas
+	
 	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
 	Model camaA("resources/objects/rooms/camas/bed3.fbx");
+	
+	/*
+	Model camaJ("");
+	Model camaS("");
+	Model camaA("");
+	*/
+	Model puertas("resources/objects/rooms/puerta/puerta6.fbx");
+
+
+	//Baños
+	Model wc("resources/objects/bathroom/wc/wc.fbx");
+	Model banera("resources/objects/bathroom/banera/banera6.obj");
+	Model lavamanos("resources/objects/bathroom/lavamanos/lavamanos2.fbx");
+
 
 
 	//Inicialización de KeyFrames
@@ -2019,7 +2093,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
-			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA);
+			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA, puertas,wc,banera,lavamanos);
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
