@@ -71,6 +71,14 @@ rotCarY = 0.0f;
 
 float incX = 0.0f, incY = 0.0f, incZ = 0.0f, incrotY = 0.0f;
 
+//Animations
+float giroPanel = 30.0f;
+bool panelbool = false;
+int estadopanel = 0;
+
+float giroCamaras = 0.0f;
+int estadocam = 1;
+
 
 #define MAX_FRAMES 7
 int i_max_steps = 30;
@@ -165,11 +173,52 @@ void animate(void)
 		}
 	}
 
+
+	//*-------------------------------Animación de Paneles solares -------------------------*/
+	if (panelbool) {
+
+		switch (estadopanel) {
+			case 1:
+				giroPanel += 0.5f;
+				if (giroPanel > 30) {
+					estadopanel = 2;
+				}
+				break;
+			case 2:
+				giroPanel -= 0.5f;
+				if (giroPanel < -30) {
+					estadopanel = 1;
+				}
+				break;
+			default:
+				giroPanel = giroPanel;
+
+		}
+
+	}
+	/*--------------------------------Animacion automática de Camaras*/
+	if (true) {
+		switch (estadocam) {
+		case 1:
+			giroCamaras += 0.5f;
+			if (giroCamaras > 5.0f) {
+				estadocam = 2;
+			}
+			break;
+		case 2:
+			giroCamaras -= 0.5f;
+			if (giroCamaras < -5.0f) {
+				estadocam = 1;
+			}
+			break;
+		}
+	}
+
 }
 
 void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
-	 Model street, Model sofaMesa, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer)
+	 Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA)
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -405,23 +454,94 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//Camara - sala
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(15.0f, 0.8f, -10.0f));
+	model = glm::translate(model, glm::vec3(14.85f, 0.8f, -10.0f));
 	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
 	model = glm::scale(model, glm::vec3(0.007f));
 	model = glm::rotate(model, glm::radians(-135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = model = glm::rotate(model, glm::radians(giroCamaras), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	cameraObj.Draw(shader);
 
 
 	//Camara - piscina
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-4.5f, 0.9f, -39.9f));
+	
+	model = glm::translate(model, glm::vec3(-4.8f, 1.0f, -39.8f));
 	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
 	model = glm::scale(model, glm::vec3(0.007f));
 	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = model = glm::rotate(model, glm::radians(giroCamaras), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	cameraObj.Draw(shader);
 
+
+	//Paneles con base
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.7f, 0.0f));
+	model = glm::translate(temp, glm::vec3(5.0f, 0.0f, -15.0f));
+	model = glm::scale(model, glm::vec3(5.0f, 0.3f, 5.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
+
+	//Panel 1
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, 2.6f, -15.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.25f));
+	model = glm::rotate(model, glm::radians(giroPanel), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	panel.Draw(shader);
+
+
+
+	//Panel con base
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 2.7f, 0.0f));
+	model = glm::translate(temp, glm::vec3(15.0f, 0.0f, -15.0f));
+	model = glm::scale(model, glm::vec3(5.0f, 0.3f, 5.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	techo.Draw(shader);
+
+	//Panel 2
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(10.0f, 2.6f, -15.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.25f));
+	model = glm::rotate(model, glm::radians(giroPanel), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	panel.Draw(shader);
+
+	/*-------------------------------------------Objetos Cuartos----------------------------------------------*/
+
+
+	//Camas
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+	model = glm::translate(temp, glm::vec3(17.5f, -2.5f, -36.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 2.5f, 2.5f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	camaJ.Draw(shader);
+
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+	model = glm::translate(temp,glm::vec3(9.0f,-2.5f,-37.0f));
+	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(2.0f,2.5f,2.5f));
+	shader.setMat4("model", model);
+	camaS.Draw(shader);
+
+
+	model = glm::mat4(1.0f);
+	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+	model = glm::translate(temp, glm::vec3(2.5f, -2.5f, -3.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 2.5f, 2.5f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	camaA.Draw(shader);
 
 	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
 
@@ -1807,10 +1927,11 @@ int main()
 	Model palm("resources/objects/exterior/palmera/palm.fbx");
 	Model carro("resources/objects/exterior/carro/carro.fbx");
 	Model street("resources/objects/exterior/calle/calle13.fbx");
+	Model panel("resources/objects/exterior/panel/panel.obj");
 
 	//MODELS COMEDOR - COCINA - SALA
 	Model cocina("resources/objects/cocina/cocinaInt/cocina.fbx");
-	Model sofaMesa("resources/objects/sala/sofaMesa/sofaError.fbx");//pendiente
+	//Model sofaMesa("resources/objects/sala/sofaMesa/sofaError.fbx");//pendiente
 
 	Model lavadora("resources/objects/piscinaLavanderia/lavadora/wash_mashine2.fbx");
 	Model cameraObj("resources/objects/piscinaLavanderia/camera/cameratext.fbx");
@@ -1819,7 +1940,12 @@ int main()
 	//Mesa-barra y sala
 	Model sofa("resources/objects/sala/salita/sala4.obj");
 	Model mesaComer("resources/objects/cocina/comedor/comedor.fbx");
-	
+
+
+	//Camas
+	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
+	Model camaS("resources/objects/rooms/camas/bed2.fbx");
+	Model camaA("resources/objects/rooms/camas/bed3.fbx");
 
 
 	//Inicialización de KeyFrames
@@ -1893,7 +2019,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
-			carro, cocina, paredv1, paredv2, street, sofaMesa, lavadora, cameraObj, ttv, sofa, mesaComer);
+			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA);
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
@@ -1931,6 +2057,18 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	//For music start
 	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
 		musicOn = true;
+
+	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
+		if (panelbool == false) {
+			panelbool = true;
+			estadopanel = 1;
+		}
+		else {
+			panelbool = false;
+			estadopanel = 0;
+		}
+
+	}
 
 	//To play KeyFrame animation 
 	if (key == GLFW_KEY_P && action == GLFW_PRESS)
