@@ -288,7 +288,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
 
-
+	
 	//Palms
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(20.0f, -2.5f, -10.0f));
@@ -423,7 +423,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("model", model);
 	cocina.Draw(shader);
 
-
+	
 	
 
 
@@ -511,67 +511,44 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 
 	//-------------------------------------------Pared 4--[TIENE VENTANA]-----------------------------------------------//
-	
+
+
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::mat4(1.0f);
 	temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -40.0f));
 	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-	temp = model = glm::translate(temp, glm::vec3(0.0f, 0.0f, 0.3f));
-	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-	
-	//Ventana
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
-	model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	ventana.Draw(shader);
-	
-	
-	/*
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	paredv2.Draw(shader);
 	glEnable(GL_BLEND);
 
+
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	temp = model = glm::translate(temp, glm::vec3(0.0f, 0.0f, 0.3f));
 	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	paredv1.Draw(shader);
+	
 	glEnable(GL_BLEND);
 
-	//ventana
-
+	//Ventana
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
 	model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	ventana.Draw(shader);
 	glEnable(GL_BLEND);
-	*/
-
 
 
 	//-------------------------------------------Pared 5----------------------------------------------------------//
@@ -615,11 +592,6 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	pared_interior.Draw(shader);
 
-	model = glm::translate(temp, glm::vec3(-0.15f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.8f, 3.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	ventana.Draw(shader);
 
 
 
@@ -861,6 +833,10 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	pared_interior.Draw(shader);
 
+
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::mat4(1.0f);
 	temp = model = glm::translate(model, glm::vec3(11.5f, 0.0f, -9.8f));
 	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -868,26 +844,34 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
+	paredv2.Draw(shader);
+	glEnable(GL_BLEND);
 
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
 	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(7.0f, 5.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
+	paredv1.Draw(shader);
+	glEnable(GL_BLEND);
+
 
 	//Ventana
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.10f));
 	model = glm::scale(model, glm::vec3(4.0f, 3.0f, 0.6f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	ventana.Draw(shader);
+	glEnable(GL_BLEND);
 
-	
 
 
 	//-------------------------------------------Pared 12----------------------------------------------------------//
@@ -1142,23 +1126,41 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//-------------------------------------------Pared 17----------------------------------------------------------//
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::mat4(1.0f);
 	temp = model = glm::translate(model, glm::vec3(-0.5f, 0.0f, -20.0f));
 	model = glm::scale(model, glm::vec3(9.0f, 5.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
+	paredv1.Draw(shader);
+	glEnable(GL_BLEND);
 
 
+
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
 	model = glm::scale(model, glm::vec3(9.0f, 5.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
+	paredv1.Draw(shader);
+	glEnable(GL_BLEND);
 
 
+	//Ventana
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
+	model = glm::scale(model, glm::vec3(4.5f, 3.0f, 0.8f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	ventana.Draw(shader);
+	glEnable(GL_BLEND);
 
 	
 
@@ -1329,7 +1331,8 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//-------------------------------------------Pared 21----------------------------------------------------------//
 	
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::mat4(1.0f);
 	temp = model = glm::translate(model, glm::vec3(1.0f, 0.0f, -36.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -1337,21 +1340,35 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
+	paredv1.Draw(shader);
+	glEnable(GL_BLEND);
+
+
 	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
+	paredv1.Draw(shader);
+	glEnable(GL_BLEND);
 
+
+
+	//Ventana
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	model = glm::translate(temp, glm::vec3(0.1f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.4f, 3.0f, 5.0f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	ventana.Draw(shader);
+	glEnable(GL_BLEND);
+
 
 	/*----------------------------------------Suelo------------------------------------*/
 
