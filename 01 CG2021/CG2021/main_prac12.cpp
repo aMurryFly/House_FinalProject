@@ -423,7 +423,6 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("model", model);
 	cocina.Draw(shader);
 
-<<<<<<< HEAD
 	//tv-mueble
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(-3.5f, -2.3f, -15.0f));
@@ -464,10 +463,6 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	cameraObj.Draw(shader);
-=======
-	
->>>>>>> 66d62061d3046699f0b00963dcad7ef82a12b653
-	
 
 
 	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
@@ -555,17 +550,12 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 	//-------------------------------------------Pared 4--[TIENE VENTANA]-----------------------------------------------//
 
-
-<<<<<<< HEAD
 	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
 	model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	ventana.Draw(shader);
-	
-	
-=======
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -603,8 +593,6 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	ventana.Draw(shader);
 	glEnable(GL_BLEND);
 
-
->>>>>>> 66d62061d3046699f0b00963dcad7ef82a12b653
 	//-------------------------------------------Pared 5----------------------------------------------------------//
 
 	model = glm::mat4(1.0f);
