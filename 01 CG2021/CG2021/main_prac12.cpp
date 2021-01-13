@@ -223,7 +223,7 @@ void animate(void)
 
 void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
-	 Model street)
+	 Model street, Model sofaMesa)
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -367,12 +367,34 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	garage.Draw(shader);
 
 
-	//CALLE 
+	//CALLE - acera
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(15.0f, -2.4f, -5.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 1.0f));
+	model = glm::translate(model, glm::vec3(45.0f, -2.3f, 9.0f));
+	model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
 	shader.setMat4("model", model);
-	garage.Draw(shader);
+	pared_interior.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-45.0f, -2.3f, 9.0f));
+	model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
+	shader.setMat4("model", model);
+	pared_interior.Draw(shader);
+
+	//El otro lado de la calle
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(45.0f, -2.3f, 22.0f));
+	model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
+	shader.setMat4("model", model);
+	pared_interior.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-45.0f, -2.3f, 22.0f));
+	model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
+	shader.setMat4("model", model);
+	pared_interior.Draw(shader);
+
+
+
 
 	//STREET
 	model = glm::mat4(1.0f);
@@ -383,7 +405,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	street.Draw(shader);
 
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-35.0f, -2.3f, 16.0f));
+	model = glm::translate(model, glm::vec3(-35.0f, -2.4f, 16.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.24f, 0.01f, 0.8f));
 	shader.setMat4("model", model);
@@ -400,7 +422,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	model = glm::scale(model, glm::vec3(0.002f, 0.0022f, 0.002f));
 	shader.setMat4("model", model);
 	cocina.Draw(shader);
-	
+
 
 	
 
@@ -488,7 +510,8 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 
 
 
-	//-------------------------------------------Pared 4----------------------------------------------------------//
+	//-------------------------------------------Pared 4--[TIENE VENTANA]-----------------------------------------------//
+	
 	model = glm::mat4(1.0f);
 	temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -40.0f));
 	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
@@ -503,7 +526,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	pared_interior.Draw(shader);
-
+	
 	//Ventana
 
 	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
@@ -512,6 +535,42 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	shader.setMat4("model", model);
 	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
 	ventana.Draw(shader);
+	
+	
+	/*
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	model = glm::mat4(1.0f);
+	temp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(10.0f, 5.0f, 1.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	paredv2.Draw(shader);
+	glEnable(GL_BLEND);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	temp = model = glm::translate(temp, glm::vec3(0.0f, 0.0f, 0.3f));
+	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	paredv1.Draw(shader);
+	glEnable(GL_BLEND);
+
+	//ventana
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
+	model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+	ventana.Draw(shader);
+	glEnable(GL_BLEND);
+	*/
 
 
 
@@ -1732,10 +1791,9 @@ int main()
 	Model carro("resources/objects/exterior/carro/carro.fbx");
 	Model street("resources/objects/exterior/calle/calle13.fbx");
 
-
-
 	//MODELS COMEDOR - COCINA - SALA
 	Model cocina("resources/objects/cocina/cocinaInt/cocina.fbx");
+	Model sofaMesa("resources/objects/sala/sofaMesa/sofaError.fbx");//pendiente
 
 	//Inicialización de KeyFrames
 	for (int i = 0; i < MAX_FRAMES; i++)
@@ -1773,7 +1831,7 @@ int main()
 	
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
-		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, carro, cocina, paredv1, paredv2, street);
+		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, carro, cocina, paredv1, paredv2, street, sofaMesa);
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
