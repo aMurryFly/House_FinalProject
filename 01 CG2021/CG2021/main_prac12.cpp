@@ -70,13 +70,16 @@ rotCarY = 0.0f;
 
 float incX = 0.0f, incY = 0.0f, incZ = 0.0f, incrotY = 0.0f;
 
-//Animations
+//Animations variables 
 float giroPanel = 30.0f;
 bool panelbool = false;
 int estadopanel = 0;
 
 float giroCamaras = 0.0f;
 int estadocam = 1;
+
+int  stdCan = 1; 
+float movCan = 0.0f;
 
 
 #define MAX_FRAMES 7
@@ -212,13 +215,34 @@ void animate(void)
 			break;
 		}
 	}
+	
+
+
+	if (true) {
+		switch (stdCan) {
+		case 1:
+			movCan += 0.01f;
+			if (movCan > 0.2f) {
+				stdCan = 2;
+			}
+			break;
+		case 2:
+			movCan -= 0.01f;
+			if (movCan < -0.2f) {
+				stdCan = 1;
+			}
+			break;
+		}
+	}
 
 }
 
 void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
-	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA, Model wc, Model banera, Model lavamanos, Model closet, 
-	Model puerta, Model pant, Model esc1,Model silla)
+	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA,
+	Model wc, Model banera, Model lavamanos, Model closet, Model puerta, Model piscina, Model cancel1, Model cancel2,Model lampara, Model yasuo,
+	Model pant, Model esc1, Model silla)
+
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -281,8 +305,53 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	shader.setMat4("view", view);
 	shader.setMat4("projection", projection);
 
+	//PERSONAJES
+
+	/*
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.1f));
+	shader.setMat4("model", model);
+	yasuo.Draw(shader);*/
+
+
+
+
+
+
 	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
 
+	//CANCELES - POOL DOORS
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.85f, -0.4f, -25.0f));
+	model = glm::scale(model, glm::vec3(0.3f, 3.8f, 8.0f));
+	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	shader.setMat4("model", model);
+	cancel1.Draw(shader);
+	glEnable(GL_BLEND);
+
+
+	//es el que se mueve
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.85f, -0.4f, -22.0f));
+	model = glm::scale(model, glm::vec3(0.1f, 3.8f, 10.0f));
+	//para el movimiento
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, movCan));
+	shader.setMat4("model", model);
+	cancel2.Draw(shader);
+	glEnable(GL_BLEND);
+
+
+	//Piscina
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-1.9f, -2.5f, -33.0f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.01f, 0.02f));
+	shader.setMat4("model", model);
+	piscina.Draw(shader);
 
 	//Palms
 	model = glm::mat4(1.0f);
@@ -407,6 +476,45 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 
 	//------------------------------------------------------------------Cocina - Comedor- Sala ----------------------------------------------------------------------------------------//
 
+	//LAMPARAS
+
+	//cuarto murry
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, 1.4f, -4.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+
+	// Sala - conina
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, 1.4f, -14.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+
+	//cocina
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(9.0f, 1.4f, -14.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(9.0f, 1.4f, -14.5f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(9.0f, 1.4f, -15.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+
+
 
 	//cocina integral
 	model = glm::mat4(1.0f);
@@ -438,7 +546,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
 	shader.setMat4("model", model);
 	sofa.Draw(shader);
-
+	
 	/*--------------------------------Escritorio----------------------------------------*/
 	
 	//Escritorio Alfonso
@@ -460,8 +568,8 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 
 	//Silla
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(1.5f, 0.0f, -3.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -1.2f, 0.0f));
+	model = glm::translate(model, glm::vec3(1.0f, 0.0f, -3.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
 	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
@@ -471,21 +579,30 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	
 	//Escritorio Joaquin
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(13.0f, 0.0f, -33.0f));
+	model = glm::translate(model, glm::vec3(14.0f, 0.0f, -32.0f));
 	model = glm::translate(model, glm::vec3(0.0f, -2.1f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.003f,0.002f,0.002f));
+	model = glm::scale(model, glm::vec3(0.002f,0.002f,0.002f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
 	shader.setMat4("model", model);
 	pant.Draw(shader);
 
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(12.5f, 0.0f, -32.0f));
+	model = glm::translate(model, glm::vec3(13.5f, 0.0f, -32.0f));
 	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.004f, 0.005f, 0.003f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	esc1.Draw(shader);
+
+	//Silla
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(10.5f, 0.0f, -32.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
+	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	silla.Draw(shader);
 
 
 	//Escritorio Sergio
@@ -506,9 +623,17 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	shader.setMat4("model", model);
 	esc1.Draw(shader);
 
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -35.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.003f, 0.003f, 0.003f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	silla.Draw(shader);
 
 	/*-----------------------------------------------------------------BAÑOS--------------------------------------------------------------------------------------------*/
 	//Baño 1
+	
 	model = glm::mat4(1.0f);
 	temp = glm::translate(model, glm::vec3(-6.0f, -2.5f, -6.0f));
 	model = glm::translate(temp, glm::vec3(-1.0f, 0.0f, -4.0f));
@@ -564,7 +689,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	shader.setMat4("model", model);
 	lavamanos.Draw(shader);
 
-
+	
 
 	//------------------------------------------------------------------PSICINA - EXT ----------------------------------------------------------------------------------------//
 
@@ -670,7 +795,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	camaA.Draw(shader);
 
 	////////////////////CLOSET/////////////////////////
-
+	
 	//Closet - cuerto murry
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(0.6f, -2.4f, -8.05f));
@@ -713,6 +838,13 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	shader.setMat4("model", model);
 	puerta.Draw(shader);
 
+	//puerta baño cuarto murry
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-1.1f, -2.4f, -6.0f));
+	model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
+	shader.setMat4("model", model);
+	puerta.Draw(shader);
+
 
 	//PUERTAS PEGADAS
 
@@ -747,7 +879,7 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	puerta.Draw(shader);
-
+	
 
 	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
 
@@ -2145,20 +2277,22 @@ int main()
 	//Mesa-barra y sala
 	Model sofa("resources/objects/sala/salita/sala4.obj");
 	Model mesaComer("resources/objects/cocina/comedor/comedor.fbx");
+	Model lampara("resources/objects/cocina/lamp/lamp.fbx");
 
 
 	//Camas
-	/*
+	
 	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
 	Model camaA("resources/objects/rooms/camas/bed3.fbx");
-	*/
 	
-	Model camaJ("");
-	Model camaS("");
-	Model camaA("");
 	
-	//Model puertas("resources/objects/rooms/puerta/puerta6.fbx");
+	
+	//Model camaJ("");
+	//Model camaS("");
+	//Model camaA("");
+	
+	Model puertas("resources/objects/rooms/puerta/puerta6.fbx");
 
 
 	//Baños
@@ -2169,6 +2303,13 @@ int main()
 
 	Model puerta("resources/objects/rooms/puerta/puerta6.fbx");
 	Model closet("resources/objects/rooms/closet/closet.fbx");
+	Model piscina("resources/objects/piscinaLavanderia/piscina/psicina1.obj");
+	Model cancel1("resources/objects/piscinaLavanderia/cancel/cancel1pt1.fbx");
+	Model cancel2("resources/objects/piscinaLavanderia/cancel/cancel2pt2.fbx");
+
+
+	Model yasuo("resources/objects/personajes/yasuo/yasuo4.fbx");
+
 
 	//Inicialización de KeyFrames
 	/*
@@ -2241,8 +2382,8 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
-			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA,wc,banera,lavamanos, closet, puerta,
-			pant,esc1,silla);
+			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA,wc,banera,lavamanos, closet, 
+			puerta, piscina, cancel1, cancel2,lampara, yasuo, pant, esc1, silla);
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
