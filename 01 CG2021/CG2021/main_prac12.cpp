@@ -85,8 +85,16 @@ int estadocam = 1;
 int  stdCan = 1; 
 float movCan = 0.0f;
 
+
 float giroSilla = 0.0f;
 int sillaEdo = 1;
+
+//ciclo dia noche
+float day = 0.0f,
+difus = 1.0f,
+night = 0.0f;
+int stateday = 0;
+
 
 #define MAX_FRAMES 7
 int i_max_steps = 30;
@@ -247,35 +255,66 @@ void animate(void)
 	}
 
 	/*Sillas girando*/
-	if (true) {
-		switch (sillaEdo) {
-		case 1:
-			giroSilla += 3.0f;
-			if (giroSilla > 20.0f) {
-				sillaEdo = 2;
-			}
-			break;
-		case 2:
-			giroSilla -= 3.0f;
-			if (giroSilla < -20.0f) {
-				sillaEdo = 3;
-			}
-			break;
-		case 3:
-			giroSilla += 5.0f;
-			if (giroSilla > 90.0f) {
-				sillaEdo = 4;
-			}
-			break;
-		case 4:
-			giroSilla -= 5.0f;
-			if (giroSilla < -90.0f) {
-				sillaEdo = 1;
-			}
-			break;
+
+	switch (sillaEdo) {
+	case 1:
+		giroSilla += 3.0f;
+		if (giroSilla > 20.0f) {
+			sillaEdo = 2;
 		}
+		break;
+	case 2:
+		giroSilla -= 3.0f;
+		if (giroSilla < -20.0f) {
+			sillaEdo = 3;
+		}
+		break;
+	case 3:
+		giroSilla += 5.0f;
+		if (giroSilla > 90.0f) {
+			sillaEdo = 4;
+		}
+		break;
+	case 4:
+		giroSilla -= 5.0f;
+		if (giroSilla < -90.0f) {
+			sillaEdo = 1;
+		}
+		break;
+	}
+
+	
+
+
+	//animacion dia noche
+	if (stateday == 0) {
+		day += 0.001;
+		if (day >= 0.8)
+			stateday = 1;
+	}
+	if (stateday == 1) {
+		day -= 0.002;
+		night += 0.001;
+
+		difus -= 0.002;
+		if (night >= 0.5)
+			stateday = 2;
+	}
+
+	if (stateday == 2) {
+		if (day <= 0.02)
+			day += 0.002;
+
+		night -= 0.001;
+		difus += 0.002;
+
+		if (difus >= 1)
+			stateday = 0;
 
 	}
+
+
+
 
 }
 
@@ -289,9 +328,9 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	//Setup Advanced Lights
 	shader.setVec3("viewPos", camera.Position);
 	shader.setVec3("dirLight.direction", lightDirection);
-	shader.setVec3("dirLight.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-	shader.setVec3("dirLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-	shader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setVec3("dirLight.ambient", glm::vec3(day, 0.2f, night));
+	shader.setVec3("dirLight.diffuse", glm::vec3(difus, difus, difus));
+	shader.setVec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
 
 	shader.setVec3("pointLight[0].position", lightPosition);
 	shader.setVec3("pointLight[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
@@ -360,9 +399,11 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	animShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 	animShader.setVec3("light.direction", lightDirection);
 	animShader.setVec3("viewPos", camera.Position);
-	
+
+
 	ModelAnim yasuo("resources/objects/personajes/yasuo/yasuo4.fbx");
-	//yasuo.initShaders(animShader.ID);
+	yasuo.initShaders(animShader.ID);
+
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(10.0f, -0.4f, -38.0f));
@@ -838,7 +879,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 
 	model = glm::mat4(1.0f);
 	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
-	model = glm::translate(temp,glm::vec3(9.0f,-2.5f,-37.0f));
+	model = glm::translate(temp,glm::vec3(9.0f,-2.5f,-37.5f));
 	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(2.0f,2.5f,2.0f));
 	shader.setMat4("model", model);
@@ -2340,16 +2381,16 @@ int main()
 
 
 	//Camas
-	/*
-	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
+	
+	//Model camaJ("resources/objects/rooms/camas/bed1.fbx");
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
-	Model camaA("resources/objects/rooms/camas/bed3.fbx");
-	*/
+	//Model camaA("resources/objects/rooms/camas/bed3.fbx");
+	
 	
 	Model camaJ("");
-	Model camaS("");
+	//Model camaS("");
 	Model camaA("");
-
+	
 
 	//Baños
 	Model wc("resources/objects/bathroom/wc/wc.fbx");
