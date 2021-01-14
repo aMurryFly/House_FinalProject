@@ -2382,14 +2382,14 @@ int main()
 
 	//Camas
 	
-	//Model camaJ("resources/objects/rooms/camas/bed1.fbx");
+	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
-	//Model camaA("resources/objects/rooms/camas/bed3.fbx");
+	Model camaA("resources/objects/rooms/camas/bed3.fbx");
 	
 	
-	Model camaJ("");
+	//Model camaJ("");
 	//Model camaS("");
-	Model camaA("");
+	//Model camaA("");
 	
 
 	//Baños
