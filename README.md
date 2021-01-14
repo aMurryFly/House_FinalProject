@@ -26,7 +26,7 @@ Integrantes del equipo:
 
 - Conograma y planning del proyecto [kanbas here](https://github.com/aMurryFly/House_FinalProject/projects/1)
 
-- Para correr meramente el ejecutable darle click en el archivo ** ubicado en ./01 CG2021/
+- Para correr meramente el ejecutable darle click en el archivo CG2021 ubicado en ./01 CG2021/Debug
 
 [comment]: <- Video de funcionamiento y de uso [pendiente]()> 
 
