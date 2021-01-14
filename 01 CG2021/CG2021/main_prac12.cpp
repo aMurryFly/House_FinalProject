@@ -27,8 +27,8 @@ Alumnos:
 #include <iostream>
 
 //Para music and sound
-//#pragma comment(lib, "winmm.lib")
-//Global variable for sound
+#pragma comment(lib, "winmm.lib")
+Global variable for sound
 bool musicOn = false;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
