@@ -218,7 +218,7 @@ void animate(void)
 
 void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
-	 Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA)
+	 Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA, Model closet, Model puerta)
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -542,6 +542,87 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox,Model pastoExt, M
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	camaA.Draw(shader);
+
+	////////////////////CLOSET/////////////////////////
+
+	//Closet - cuerto murry
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.6f, -2.4f, -8.05f));
+	model = glm::scale(model, glm::vec3(0.002f, 0.0015f, 0.001f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	closet.Draw(shader);
+
+
+	//Closet - cuerto sergio
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(6.5f, -2.4f, -36.9f));
+	model = glm::scale(model, glm::vec3(0.0015f, 0.0015f, 0.002f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	closet.Draw(shader);
+
+
+	//Closet - cuerto joaco
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(7.5f, -2.4f, -36.9f));
+	model = glm::scale(model, glm::vec3(0.0015f, 0.0015f, 0.002f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	closet.Draw(shader);
+
+
+	////////////////////PUERTAS/////////////////////////
+	//Puerta principal 
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(7.0f, -2.4f, -10.0f));
+	model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
+	shader.setMat4("model", model);
+	puerta.Draw(shader);
+		
+	//puerta cuarto murry
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.0f, -2.4f, -10.0f));
+	model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
+	shader.setMat4("model", model);
+	puerta.Draw(shader);
+
+
+	//PUERTAS PEGADAS
+
+	//puerta baño
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(7.0f, -2.4f, -28.9f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	puerta.Draw(shader);
+
+	//puerta cuarto joaco
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(7.0f, -2.4f, -31.0f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+	shader.setMat4("model", model);
+	puerta.Draw(shader);
+	
+	//Cuarto sergio 
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(5.7f, -2.4f, -32.0f));
+	model = glm::scale(model, glm::vec3(0.03f, 0.02f, 0.02f));
+	shader.setMat4("model", model);
+	puerta.Draw(shader);
+
+	//CUARTO LAVADO
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(12.2f, -2.4f, -21.2f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	puerta.Draw(shader);
+
+
 
 	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
 
@@ -1947,6 +2028,8 @@ int main()
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
 	Model camaA("resources/objects/rooms/camas/bed3.fbx");
 
+	Model puerta("resources/objects/rooms/puerta/puerta6.fbx");
+	Model closet("resources/objects/rooms/closet/closet.fbx");
 
 	//Inicialización de KeyFrames
 	/*
@@ -2019,7 +2102,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
-			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA);
+			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA,closet, puerta);
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
