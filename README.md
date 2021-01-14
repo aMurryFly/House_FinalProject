@@ -30,11 +30,18 @@ Integrantes del equipo:
 
 ## ✅ Documentación y links de referencia 
 
-1. [Diseño de la casa](https://verplanos.com/plano-de-casa-grande-con-piscina-de-estilo-mediterraneo/)
-2. Herramienta de diseño arquitectónico: [Floorplanner](https://www.floorplanner.com/)
+1. El diseño de la casa está basado en el siguiente plano [plano here](https://verplanos.com/plano-de-casa-grande-con-piscina-de-estilo-mediterraneo/)
+2. Herramienta de diseño arquitectónico utilizado en boceto: [Floorplanner](https://www.floorplanner.com/)
 
 
 ## 🤔 Dudas o comentarios
 
 1. Para cualquier duda, comentario o bug sin duda reportalo mediante un issue
 2. Para saber los pendientes y aspectos importantes dentro de las decisiones del proyecto checa el kanbas de nuestro proyecto [Kanbas Project](https://github.com/aMurryFly/House_FinalProject/projects/1)
+
+## 😰 Notas express!
+
+1. Dentro de la consola del proyecto hay algunos detalles o errores de cargas de texturas, realmente no son relevantes para el proyecto, éstas están asociadas con el objeto del carro, el cual tiene detalles con la carga de texturas en la parte trasera del mismo
+
+2. La raíz del proyecto se encuentra en ./01 CG2021/
+
