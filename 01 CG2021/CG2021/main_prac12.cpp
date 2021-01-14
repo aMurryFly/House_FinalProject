@@ -77,7 +77,7 @@ float incX = 0.0f, incY = 0.0f, incZ = 0.0f, incrotY = 0.0f;
 //Animations variables 
 float giroPanel = 30.0f;
 bool panelbool = false;
-int estadopanel = 0;
+int estadopanel = 1;
 
 float giroCamaras = 0.0f;
 int estadocam = 1;
@@ -85,6 +85,8 @@ int estadocam = 1;
 int  stdCan = 1; 
 float movCan = 0.0f;
 
+float giroSilla = 0.0f;
+int sillaEdo = 1;
 
 #define MAX_FRAMES 7
 int i_max_steps = 30;
@@ -186,7 +188,7 @@ void animate(void)
 
 
 	//*-------------------------------Animación de Paneles solares -------------------------*/
-	if (panelbool) {
+	if (true) {
 
 		switch (estadopanel) {
 			case 1:
@@ -242,6 +244,37 @@ void animate(void)
 			}
 			break;
 		}
+	}
+
+	/*Sillas girando*/
+	if (true) {
+		switch (sillaEdo) {
+		case 1:
+			giroSilla += 3.0f;
+			if (giroSilla > 20.0f) {
+				sillaEdo = 2;
+			}
+			break;
+		case 2:
+			giroSilla -= 3.0f;
+			if (giroSilla < -20.0f) {
+				sillaEdo = 3;
+			}
+			break;
+		case 3:
+			giroSilla += 5.0f;
+			if (giroSilla > 90.0f) {
+				sillaEdo = 4;
+			}
+			break;
+		case 4:
+			giroSilla -= 5.0f;
+			if (giroSilla < -90.0f) {
+				sillaEdo = 1;
+			}
+			break;
+		}
+
 	}
 
 }
@@ -315,6 +348,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 
 	//PERSONAJES
 	//Remember to activate the shader with the animation
+	/*
 	animShader.use();
 	animShader.setMat4("projection", projection);
 	animShader.setMat4("view", view);
@@ -328,14 +362,14 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	animShader.setVec3("viewPos", camera.Position);
 	
 	ModelAnim yasuo("resources/objects/personajes/yasuo/yasuo4.fbx");
-	yasuo.initShaders(animShader.ID);
+	//yasuo.initShaders(animShader.ID);
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(10.0f, -0.4f, -38.0f));
 	model = glm::scale(model, glm::vec3(0.005f));
 	animShader.setMat4("model", model);
 	yasuo.Draw(animShader);
-
+	*/
 
 
 
@@ -577,7 +611,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	//Escritorio Alfonso
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(3.5f, 0.0f, -3.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -2.1f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.002f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
@@ -596,7 +630,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	model = glm::translate(model, glm::vec3(1.0f, 0.0f, -3.0f));
 	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
-	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(giroSilla), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	silla.Draw(shader);
 	
@@ -604,7 +638,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	
 	//Escritorio Joaquin
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(14.0f, 0.0f, -32.0f));
+	model = glm::translate(model, glm::vec3(12.5f, 0.0f, -32.0f));
 	model = glm::translate(model, glm::vec3(0.0f, -2.1f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.002f,0.002f,0.002f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -613,7 +647,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	pant.Draw(shader);
 
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(13.5f, 0.0f, -32.0f));
+	model = glm::translate(model, glm::vec3(12.0f, 0.0f, -32.0f));
 	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.004f, 0.005f, 0.003f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -625,7 +659,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	model = glm::translate(model, glm::vec3(10.5f, 0.0f, -32.0f));
 	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
-	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(giroSilla), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	silla.Draw(shader);
 
@@ -806,7 +840,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
 	model = glm::translate(temp,glm::vec3(9.0f,-2.5f,-37.0f));
 	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f,2.5f,2.5f));
+	model = glm::scale(model, glm::vec3(2.0f,2.5f,2.0f));
 	shader.setMat4("model", model);
 	camaS.Draw(shader);
 
@@ -2306,15 +2340,15 @@ int main()
 
 
 	//Camas
-	
+	/*
 	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
 	Model camaA("resources/objects/rooms/camas/bed3.fbx");
-
+	*/
 	
-	//Model camaJ("");
-	//Model camaS("");
-	//Model camaA("");
+	Model camaJ("");
+	Model camaS("");
+	Model camaA("");
 
 
 	//Baños
