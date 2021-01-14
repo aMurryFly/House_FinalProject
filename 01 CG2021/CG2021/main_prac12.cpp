@@ -85,6 +85,12 @@ int estadocam = 1;
 int  stdCan = 1; 
 float movCan = 0.0f;
 
+//ciclo dia noche
+float day = 0.0f,
+difus = 1.0f,
+night = 0.0f;
+int stateday = 0;
+
 
 #define MAX_FRAMES 7
 int i_max_steps = 30;
@@ -244,6 +250,36 @@ void animate(void)
 		}
 	}
 
+
+	//animacion dia noche
+	if (stateday == 0) {
+		day += 0.001;
+		if (day >= 0.8)
+			stateday = 1;
+	}
+	if (stateday == 1) {
+		day -= 0.002;
+		night += 0.001;
+
+		difus -= 0.002;
+		if (night >= 0.5)
+			stateday = 2;
+	}
+
+	if (stateday == 2) {
+		if (day <= 0.02)
+			day += 0.002;
+
+		night -= 0.001;
+		difus += 0.002;
+
+		if (difus >= 1)
+			stateday = 0;
+
+	}
+
+
+
 }
 
 void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
@@ -256,9 +292,9 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	//Setup Advanced Lights
 	shader.setVec3("viewPos", camera.Position);
 	shader.setVec3("dirLight.direction", lightDirection);
-	shader.setVec3("dirLight.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-	shader.setVec3("dirLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-	shader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setVec3("dirLight.ambient", glm::vec3(day, 0.2f, night));
+	shader.setVec3("dirLight.diffuse", glm::vec3(difus, difus, difus));
+	shader.setVec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
 
 	shader.setVec3("pointLight[0].position", lightPosition);
 	shader.setVec3("pointLight[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
@@ -327,7 +363,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	animShader.setVec3("light.direction", lightDirection);
 	animShader.setVec3("viewPos", camera.Position);
 	
-	ModelAnim yasuo("resources/objects/personajes/yasuo/yasuo4.fbx");
+	/*ModelAnim yasuo("resources/objects/personajes/yasuo/yasuo4.fbx");
 	yasuo.initShaders(animShader.ID);
 
 	model = glm::mat4(1.0f);
@@ -335,7 +371,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	model = glm::scale(model, glm::vec3(0.005f));
 	animShader.setMat4("model", model);
 	yasuo.Draw(animShader);
-
+	*/
 
 
 
