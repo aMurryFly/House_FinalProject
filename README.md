@@ -20,11 +20,11 @@ Integrantes del equipo:
 
 ## 🚀 Manuales y resultados
 
-- Para compilar el proyecto consulte el manual de compilación [pendiente]()
+- Para compilar el proyecto consulte el manual de compilación [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/manuales/Manual_Configuracion.pdf)
 
-- Para ejecutar el proyecto consulte el manual de usuario [pendiente]()
+- Para ejecutar el proyecto consulte el manual de usuario [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/manuales/Manual_Usuario.pdf)
 
-- Video de funcionamiento y de uso [pendiente]()
+[comment]: <- Video de funcionamiento y de uso [pendiente]()> 
 
 ## ✅ Documentación y links de referencia 
 
