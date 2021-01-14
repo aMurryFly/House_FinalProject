@@ -25,6 +25,7 @@ Integrantes del equipo:
 - Para ejecutar el proyecto consulte el manual de usuario [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/manuales/Manual_Usuario.pdf)
 
 - Conograma y planning del proyecto [click here](https://github.com/aMurryFly/House_FinalProject/projects/1)
+
 [comment]: <- Video de funcionamiento y de uso [pendiente]()> 
 
 ## ✅ Documentación y links de referencia 
