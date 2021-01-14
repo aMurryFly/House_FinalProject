@@ -248,8 +248,9 @@ void animate(void)
 
 void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
-	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA,
-	Model puertas, Model wc, Model banera, Model lavamanos, Model closet, Model puerta, Model piscina, Model cancel1, Model cancel2,Model lampara)
+	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA,Model wc, Model banera, Model lavamanos, Model closet, Model puerta, Model piscina, Model cancel1, Model cancel2,Model lampara,
+	Model pant, Model esc1, Model silla)
+
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -340,9 +341,11 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 
 
 
+
 	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
 
 	shader.use();
+
 	//CANCELES - POOL DOORS
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -499,7 +502,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	//------------------------------------------------------------------Cocina - Comedor- Sala ----------------------------------------------------------------------------------------//
 
 	//LAMPARAS
-	
+
 	//cuarto murry
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(0.0f, 1.4f, -4.0f));
@@ -568,10 +571,94 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
 	shader.setMat4("model", model);
 	sofa.Draw(shader);
+	
+	/*--------------------------------Escritorio----------------------------------------*/
+	
+	//Escritorio Alfonso
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.5f, 0.0f, -3.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.002f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	pant.Draw(shader);
 
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -3.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.004f,0.005f,0.003f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	esc1.Draw(shader);
+
+	//Silla
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(1.0f, 0.0f, -3.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
+	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	silla.Draw(shader);
+	
+	
+	
+	//Escritorio Joaquin
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(14.0f, 0.0f, -32.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -2.1f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.002f,0.002f,0.002f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	shader.setMat4("model", model);
+	pant.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(13.5f, 0.0f, -32.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.004f, 0.005f, 0.003f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	esc1.Draw(shader);
+
+	//Silla
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(10.5f, 0.0f, -32.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
+	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	silla.Draw(shader);
+
+
+	//Escritorio Sergio
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -33.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.0015f,0.002f,0.002f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	shader.setMat4("model", model);
+	pant.Draw(shader);
+	
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -34.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.0025f, 0.005f, 0.003f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	esc1.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -35.0f));
+	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.003f, 0.003f, 0.003f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	silla.Draw(shader);
 
 	/*-----------------------------------------------------------------BAÑOS--------------------------------------------------------------------------------------------*/
 	//Baño 1
+	
 	model = glm::mat4(1.0f);
 	temp = glm::translate(model, glm::vec3(-6.0f, -2.5f, -6.0f));
 	model = glm::translate(temp, glm::vec3(-1.0f, 0.0f, -4.0f));
@@ -627,7 +714,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	shader.setMat4("model", model);
 	lavamanos.Draw(shader);
 
-
+	
 
 	//------------------------------------------------------------------PSICINA - EXT ----------------------------------------------------------------------------------------//
 
@@ -733,7 +820,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	camaA.Draw(shader);
 
 	////////////////////CLOSET/////////////////////////
-
+	
 	//Closet - cuerto murry
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(0.6f, -2.4f, -8.05f));
@@ -817,7 +904,7 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	puerta.Draw(shader);
-
+	
 
 	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
 
@@ -904,12 +991,6 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 
 	//-------------------------------------------Pared 4--[TIENE VENTANA]-----------------------------------------------//
 
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
-	model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	ventana.Draw(shader);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -2195,6 +2276,11 @@ int main()
 	Model suelo("resources/objects/Texplanes/suelo.fbx");
 	Model techo("resources/objects/Texplanes/marc.fbx");
 
+	//Escritorio
+	Model pant("resources/objects/Setup/pantalla/pantallas4.fbx");
+	Model esc1("resources/objects/Setup/escritorio/escritorio2.obj");
+	Model silla("resources/objects/Setup/silla/silla5.obj");
+	
 	//Ventanas
 	Model paredv1("resources/objects/Texplanes/paredintv.fbx");
 	Model paredv2("resources/objects/Texplanes/paredvent.fbx");
@@ -2224,9 +2310,11 @@ int main()
 	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
 	Model camaA("resources/objects/rooms/camas/bed3.fbx");
-	
 
-	Model puertas("resources/objects/rooms/puerta/puerta6.fbx");
+	
+	//Model camaJ("");
+	//Model camaS("");
+	//Model camaA("");
 
 
 	//Baños
@@ -2314,9 +2402,12 @@ int main()
 	
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
-		display(staticShader,animShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
-			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA, puertas,wc,banera,lavamanos, closet, 
-			puerta, piscina, cancel1, cancel2,lampara);
+
+
+		display(staticShader, animShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
+			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA,wc,banera,lavamanos, closet, 
+			puerta, piscina, cancel1, cancel2,lampara, pant, esc1, silla);
+
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
