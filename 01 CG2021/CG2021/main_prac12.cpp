@@ -87,7 +87,8 @@ float movCan = 0.0f;
 
 
 float giroSilla = 0.0f;
-int sillaEdo = 1;
+bool sillabool = false;
+int sillaEdo = 0;
 
 //ciclo dia noche
 float day = 0.0f,
@@ -162,6 +163,7 @@ void sound() {
 
 void animate(void)
 {
+	//-------------------------------------Animación de Carro
 	if (play)
 	{
 		if (i_curr_steps >= i_max_steps) //end of animation between frames?
@@ -222,20 +224,20 @@ void animate(void)
 		switch (estadocam) {
 		case 1:
 			giroCamaras += 0.5f;
-			if (giroCamaras > 5.0f) {
+			if (giroCamaras > 6.0f) {
 				estadocam = 2;
 			}
 			break;
 		case 2:
 			giroCamaras -= 0.5f;
-			if (giroCamaras < -5.0f) {
+			if (giroCamaras < -6.0f) {
 				estadocam = 1;
 			}
 			break;
 		}
 	}
 	
-
+	//---------------------Animación automática de Cancel-----------------------------
 
 	if (true) {
 		switch (stdCan) {
@@ -254,39 +256,42 @@ void animate(void)
 		}
 	}
 
-	/*Sillas girando*/
-
-	switch (sillaEdo) {
-	case 1:
-		giroSilla += 3.0f;
-		if (giroSilla > 20.0f) {
-			sillaEdo = 2;
+	/*------------------------------Sillas girando---------------------------------*/
+	if (sillabool) {
+		switch (sillaEdo) {
+		case 1:
+			giroSilla += 3.0f;
+			if (giroSilla > 20.0f) {
+				sillaEdo = 2;
+			}
+			break;
+		case 2:
+			giroSilla -= 3.0f;
+			if (giroSilla < -20.0f) {
+				sillaEdo = 3;
+			}
+			break;
+		case 3:
+			giroSilla += 5.0f;
+			if (giroSilla > 90.0f) {
+				sillaEdo = 4;
+			}
+			break;
+		case 4:
+			giroSilla -= 5.0f;
+			if (giroSilla < -90.0f) {
+				sillaEdo = 1;
+			}
+			break;
+		case 0:
+			giroSilla = 0.0f;
+			
 		}
-		break;
-	case 2:
-		giroSilla -= 3.0f;
-		if (giroSilla < -20.0f) {
-			sillaEdo = 3;
-		}
-		break;
-	case 3:
-		giroSilla += 5.0f;
-		if (giroSilla > 90.0f) {
-			sillaEdo = 4;
-		}
-		break;
-	case 4:
-		giroSilla -= 5.0f;
-		if (giroSilla < -90.0f) {
-			sillaEdo = 1;
-		}
-		break;
 	}
 
+
 	
-
-
-	//animacion dia noche
+	//----------------------------------------Animacion dia noche
 	if (stateday == 0) {
 		day += 0.001;
 		if (day >= 0.8)
@@ -2521,14 +2526,15 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
 		sound();
 
+	//Animación de Sillas.
 	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
-		if (panelbool == false) {
-			panelbool = true;
-			estadopanel = 1;
+		if (sillabool == false) {
+			sillabool = true;
+			sillaEdo = 1;
 		}
 		else {
-			panelbool = false;
-			estadopanel = 0;
+			sillabool = false;
+			sillaEdo = 0;
 		}
 
 	}
