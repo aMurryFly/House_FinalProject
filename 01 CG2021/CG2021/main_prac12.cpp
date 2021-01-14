@@ -218,7 +218,7 @@ void animate(void)
 void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
 	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA,
-	Model puertas, Model wc, Model banera, Model lavamanos, Model closet, Model puerta)
+	Model puertas, Model wc, Model banera, Model lavamanos, Model closet, Model puerta, Model piscina, Model cancel1, Model cancel2, Model yasuo)
 {
 	shader.use();
 	//Setup Advanced Lights
@@ -281,8 +281,49 @@ void display(Shader shader, Shader SkyboxShader, Skybox skybox, Model pastoExt, 
 	shader.setMat4("view", view);
 	shader.setMat4("projection", projection);
 
+	//PERSONAJES
+
+	/*
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.1f));
+	shader.setMat4("model", model);
+	yasuo.Draw(shader);*/
+
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.85f, -0.4f, -25.0f));
+	model = glm::scale(model, glm::vec3(0.3f, 3.8f, 8.0f));
+	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	shader.setMat4("model", model);
+	cancel1.Draw(shader);
+	glEnable(GL_BLEND);
+
+
+	//es el que se mueve
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(3.85f, -0.4f, -22.0f));
+	model = glm::scale(model, glm::vec3(0.1f, 3.8f, 10.0f));
+	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, .0f));
+	shader.setMat4("model", model);
+	cancel2.Draw(shader);
+	glEnable(GL_BLEND);
+
+
+
+
 	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
 
+	//Piscina
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-1.9f, -2.5f, -33.0f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.01f, 0.02f));
+	shader.setMat4("model", model);
+	piscina.Draw(shader);
 
 	//Palms
 	model = glm::mat4(1.0f);
@@ -2103,6 +2144,13 @@ int main()
 
 	Model puerta("resources/objects/rooms/puerta/puerta6.fbx");
 	Model closet("resources/objects/rooms/closet/closet.fbx");
+	Model piscina("resources/objects/piscinaLavanderia/piscina/psicina1.obj");
+	Model cancel1("resources/objects/piscinaLavanderia/cancel/cancel1pt1.fbx");
+	Model cancel2("resources/objects/piscinaLavanderia/cancel/cancel1pt2.fbx");
+
+
+	Model yasuo("resources/objects/personajes/yasuo/yasuo4.fbx");
+
 
 	//Inicialización de KeyFrames
 	/*
@@ -2175,7 +2223,7 @@ int main()
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 		display(staticShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
-			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA, puertas,wc,banera,lavamanos, closet, puerta);
+			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA, puertas,wc,banera,lavamanos, closet, puerta, piscina, cancel1, cancel2, yasuo);
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
