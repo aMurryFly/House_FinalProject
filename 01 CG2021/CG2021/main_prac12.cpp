@@ -326,7 +326,7 @@ void animate(void)
 
 
 }
-
+/*
 void display(glm::mat4 projection, glm::mat4 view, Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
 	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo,  Model carro, Model cocina, Model paredv1, Model paredv2,
 	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel,Model wc, Model banera, Model lavamanos, Model closet, Model puerta, Model piscina, Model cancel1, Model cancel2,Model lampara,
@@ -335,56 +335,15 @@ void display(glm::mat4 projection, glm::mat4 view, Shader shader, Shader animSha
 )
 
 {
-	shader.use();
-	//Setup Advanced Lights
-	shader.setVec3("viewPos", camera.Position);
-	shader.setVec3("dirLight.direction", lightDirection);
-	shader.setVec3("dirLight.ambient", glm::vec3(day, 0.2f, night));
-	shader.setVec3("dirLight.diffuse", glm::vec3(difus, difus, difus));
-	shader.setVec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
-
-	shader.setVec3("pointLight[0].position", lightPosition);
-	shader.setVec3("pointLight[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setVec3("pointLight[0].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setVec3("pointLight[0].specular", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setFloat("pointLight[0].constant", 0.8f);
-	shader.setFloat("pointLight[0].linear", 0.009f);
-	shader.setFloat("pointLight[0].quadratic", 0.032f);
-
-	shader.setVec3("pointLight[1].position", glm::vec3(0.0, 0.0f, 0.0f));
-	shader.setVec3("pointLight[1].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setVec3("pointLight[1].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setVec3("pointLight[1].specular", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setFloat("pointLight[1].constant", 1.0f);
-	shader.setFloat("pointLight[1].linear", 0.009f);
-	shader.setFloat("pointLight[1].quadratic", 0.032f);
-
-	shader.setFloat("material_shininess", 32.0f);
-
-	glm::mat4 model = glm::mat4(1.0f);
-	glm::mat4 tmp = glm::mat4(1.0f);
-	// view/projection transformations
-	//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 5.0f, 500.0f);
-	//glm::mat4 view = camera.GetViewMatrix();
-	shader.setMat4("projection", projection);
-	shader.setMat4("view", view);
-
-	//// Light
-	glm::vec3 lightColor = glm::vec3(1.0f);
-	glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.75f);
-
+	
 	//Enable Shader
 	shader.use();
 
-	// create transformations and Projection
-	glm::mat4 temp = glm::mat4(1.0f);
-	glm::mat4 temp2 = glm::mat4(1.0f);
+	
 
 
-	//Use "projection" to include Camera
-	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.5f, 10000.0f);
-	view = camera.GetViewMatrix();
+	shader.setMat4("projection", projection);
+	shader.setMat4("view", view);
 
 	// pass them to the shaders
 	shader.setVec3("viewPos", camera.Position);
@@ -398,7 +357,7 @@ void display(glm::mat4 projection, glm::mat4 view, Shader shader, Shader animSha
 
 	//PERSONAJES
 
-	/*
+
 	animShader.use();
 	animShader.setMat4("projection", projection);
 	animShader.setMat4("view", view);
@@ -418,1856 +377,14 @@ void display(glm::mat4 projection, glm::mat4 view, Shader shader, Shader animSha
 	model = glm::translate(model, glm::vec3(10.0f, -0.4f, -38.0f));
 	model = glm::scale(model, glm::vec3(0.005f));
 	animShader.setMat4("model", model);
-	yasuo.Draw(animShader);*/
+	yasuo.Draw(animShader);
 	
 
 	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
 
-	shader.use();
-
-	//CANCELES - POOL DOORS
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(3.85f, -0.4f, -25.0f));
-	model = glm::scale(model, glm::vec3(0.3f, 3.8f, 8.0f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	shader.setMat4("model", model);
-	cancel1.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-	//es el que se mueve
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(3.85f, -0.4f, -22.0f));
-	model = glm::scale(model, glm::vec3(0.1f, 3.8f, 10.0f));
-	//para el movimiento
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, movCan));
-	shader.setMat4("model", model);
-	cancel2.Draw(shader);
-	glEnable(GL_BLEND);
-
 	
-	//Piscina
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-1.9f, -2.5f, -33.0f));
-	model = glm::scale(model, glm::vec3(0.02f, 0.01f, 0.02f));
-	shader.setMat4("model", model);
-	piscina.Draw(shader);
-
-	//Carro
-	model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::translate(model, glm::vec3(posCarX, posCarY, posCarZ));
-	model = glm::rotate(model, glm::radians(rotCarY), glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::scale(model, glm::vec3(0.07f));
-	shader.setMat4("model", model);
-	carro.Draw(shader);
-
-
-	//PASTO GLOBAL
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 0.0f));
-	model = glm::scale(model, glm::vec3(300.0f));
-	shader.setMat4("model", model);
-	pastoExt.Draw(shader);
-
-
-	//PISO 
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(10.0f, -2.4f, 5.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
-	shader.setMat4("model", model);
-	garage.Draw(shader);
-
-
-	//CALLE - acera
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(45.0f, -2.3f, 9.0f));
-	model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
-	shader.setMat4("model", model);
-	pared_interior.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-45.0f, -2.3f, 9.0f));
-	model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
-	shader.setMat4("model", model);
-	pared_interior.Draw(shader);
-
-	//El otro lado de la calle
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(45.0f, -2.3f, 22.0f));
-	model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
-	shader.setMat4("model", model);
-	pared_interior.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-45.0f, -2.3f, 22.0f));
-	model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
-	shader.setMat4("model", model);
-	pared_interior.Draw(shader);
-
-	//STREET
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(85.0f, -2.4f, 16.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.24f, 0.01f, 0.8f));
-	shader.setMat4("model", model);
-	street.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-35.0f, -2.4f, 16.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.24f, 0.01f, 0.8f));
-	shader.setMat4("model", model);
-	street.Draw(shader);
-
-
-	//------------------------------------------------------------------Cocina - Comedor- Sala ----------------------------------------------------------------------------------------//
-
-	//LAMPARAS
-
-	/*FOR MUSIC AMBIENTE*/
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-2.7f, 1.4f, -24.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-1.8f, 1.4f, -24.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-0.9f, 1.4f, -24.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 1.4f, -24.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.9f, 1.4f, -24.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-
-
-	//cuarto murry
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 1.4f, -4.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-
-	// Sala - conina
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 1.4f, -14.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-
-	//cocina
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(9.0f, 1.4f, -14.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(9.0f, 1.4f, -14.5f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(9.0f, 1.4f, -15.0f));
-	model = glm::scale(model, glm::vec3(0.03f));
-	shader.setMat4("model", model);
-	lampara.Draw(shader);
-
-
-
-
-	//cocina integral
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(18.0f, -2.4f, -24.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	model = glm::scale(model, glm::vec3(0.002f, 0.0022f, 0.002f));
-	shader.setMat4("model", model);
-	cocina.Draw(shader);
-
-	//tv-mueble
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-3.5f, -2.3f, -14.5f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, .0f));
-	model = glm::scale(model, glm::vec3(0.35f));
-	shader.setMat4("model", model);
-	ttv.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(8.5f, -2.3f, -15.0f));
-	model = glm::scale(model, glm::vec3(2.3f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	shader.setMat4("model", model);
-	mesaComer.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(2.5f, -2.3f, -14.0f));
-	model = glm::scale(model, glm::vec3(0.02f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	shader.setMat4("model", model);
-	sofa.Draw(shader);
-	
-	/*--------------------------------Escritorio----------------------------------------*/
-	
-	//Escritorio Alfonso
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(3.5f, 0.0f, -3.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -2.1f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.002f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	pant.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -3.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.004f,0.005f,0.003f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	esc1.Draw(shader);
-
-	//Silla
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(1.0f, 0.0f, -3.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
-	model = glm::rotate(model, glm::radians(giroSilla), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	silla.Draw(shader);
-	
-	
-	
-	//Escritorio Joaquin
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(12.5f, 0.0f, -32.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -2.1f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.002f,0.002f,0.002f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	shader.setMat4("model", model);
-	pant.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(12.0f, 0.0f, -32.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.004f, 0.005f, 0.003f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	esc1.Draw(shader);
-
-	//Silla
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(10.5f, 0.0f, -32.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
-	model = glm::rotate(model, glm::radians(giroSilla), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	silla.Draw(shader);
-
-
-	//Escritorio Sergio
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -33.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.0015f,0.002f,0.002f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	shader.setMat4("model", model);
-	pant.Draw(shader);
-	
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -34.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.0025f, 0.005f, 0.003f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	esc1.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(3.0f, 0.0f, -35.0f));
-	model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.003f, 0.003f, 0.003f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	silla.Draw(shader);
-
-	/*-----------------------------------------------------------------BAÑOS--------------------------------------------------------------------------------------------*/
-	//Baño 1
-	
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-6.0f, -2.5f, -6.0f));
-	model = glm::translate(temp, glm::vec3(-1.0f, 0.0f, -4.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 2.1f, 2.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	shader.setMat4("model", model);
-	wc.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
-	model = glm::translate(model, glm::vec3(-3.75f, 0.0f, -8.0f));
-	model = glm::scale(model, glm::vec3(0.02f, 0.025f, 0.0175f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	banera.Draw(shader);
-
-	//Lavamanos
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::translate(temp, glm::vec3(-0.1f, -0.5f, -7.0f));
-	model = glm::scale(model, glm::vec3(0.025f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	shader.setMat4("model", model);
-	lavamanos.Draw(shader);
-
-
-	//Baño 2
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-6.0f, -2.5f, -6.0f));
-	model = glm::translate(temp, glm::vec3(15.5f, 0.0f, -25.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 2.1f, 2.0f));
-	model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	wc.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
-	model = glm::translate(model, glm::vec3(11.0f, 0.0f, -26.0f));
-	model = glm::scale(model, glm::vec3(0.02f, 0.025f, 0.0175f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	banera.Draw(shader);
-
-	//Lavamanos
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::translate(temp, glm::vec3(9.25f, -1.0f, -24.25f));
-	model = glm::scale(model, glm::vec3(0.025f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	shader.setMat4("model", model);
-	lavamanos.Draw(shader);
-
-	
-
-	//------------------------------------------------------------------PSICINA - EXT ----------------------------------------------------------------------------------------//
-
-	//Lavadora
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(8.2f, -2.4f, -23.0f));
-//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	model = glm::scale(model, glm::vec3(0.003f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, .0f));
-
-	shader.setMat4("model", model);
-	lavadora.Draw(shader);
-
-	//Camara - sala
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(14.85f, 0.8f, -10.0f));
-	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	model = glm::scale(model, glm::vec3(0.007f));
-	model = glm::rotate(model, glm::radians(-135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = model = glm::rotate(model, glm::radians(giroCamaras), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	cameraObj.Draw(shader);
-
-
-	//Camara - piscina
-	model = glm::mat4(1.0f);
-	
-	model = glm::translate(model, glm::vec3(-4.8f, 1.0f, -39.8f));
-	//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
-	model = glm::scale(model, glm::vec3(0.007f));
-	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = model = glm::rotate(model, glm::radians(giroCamaras), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	cameraObj.Draw(shader);
-
-
-	//Paneles con base
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.7f, 0.0f));
-	model = glm::translate(temp, glm::vec3(5.0f, 0.0f, -15.0f));
-	model = glm::scale(model, glm::vec3(5.0f, 0.3f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-	//Panel 1
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 2.6f, -15.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.25f));
-	model = glm::rotate(model, glm::radians(giroPanel), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	panel.Draw(shader);
-
-
-
-	//Panel con base
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.7f, 0.0f));
-	model = glm::translate(temp, glm::vec3(15.0f, 0.0f, -15.0f));
-	model = glm::scale(model, glm::vec3(5.0f, 0.3f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-	//Panel 2
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(10.0f, 2.6f, -15.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.25f));
-	model = glm::rotate(model, glm::radians(giroPanel), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	panel.Draw(shader);
-
-	/*-------------------------------------------Objetos Cuartos----------------------------------------------*/
-
-	
-	//Camas
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
-	model = glm::translate(temp, glm::vec3(17.5f, -2.5f, -36.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 2.5f, 2.5f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	camaJ.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
-	model = glm::translate(temp,glm::vec3(9.0f,-2.5f,-37.5f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f,2.5f,2.0f));
-	shader.setMat4("model", model);
-	camaS.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
-	model = glm::translate(temp, glm::vec3(2.5f, -2.5f, -3.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 2.5f, 2.5f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	camaA.Draw(shader);
-
-	////////////////////CLOSET/////////////////////////
-	
-	//Closet - cuerto murry
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.6f, -2.4f, -8.05f));
-	model = glm::scale(model, glm::vec3(0.002f, 0.0015f, 0.001f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	closet.Draw(shader);
-
-
-	//Closet - cuerto sergio
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(6.5f, -2.4f, -36.9f));
-	model = glm::scale(model, glm::vec3(0.0015f, 0.0015f, 0.002f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	closet.Draw(shader);
-
-
-	//Closet - cuerto joaco
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(7.5f, -2.4f, -36.9f));
-	model = glm::scale(model, glm::vec3(0.0015f, 0.0015f, 0.002f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	closet.Draw(shader);
-
-
-	////////////////////PUERTAS/////////////////////////
-	//Puerta principal 
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(7.0f, -2.4f, -10.0f));
-	model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
-	shader.setMat4("model", model);
-	puerta.Draw(shader);
-		
-	//puerta cuarto murry
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(3.0f, -2.4f, -10.0f));
-	model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
-	shader.setMat4("model", model);
-	puerta.Draw(shader);
-
-	//puerta baño cuarto murry
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-1.1f, -2.4f, -6.0f));
-	model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
-	shader.setMat4("model", model);
-	puerta.Draw(shader);
-
-
-	//PUERTAS PEGADAS
-
-	//puerta baño
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(7.0f, -2.4f, -28.9f));
-	model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	puerta.Draw(shader);
-
-	//puerta cuarto joaco
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(7.0f, -2.4f, -31.0f));
-	model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-	shader.setMat4("model", model);
-	puerta.Draw(shader);
-	
-	//Cuarto sergio 
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(5.7f, -2.4f, -32.0f));
-	model = glm::scale(model, glm::vec3(0.03f, 0.02f, 0.02f));
-	shader.setMat4("model", model);
-	puerta.Draw(shader);
-
-	//CUARTO LAVADO
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(12.2f, -2.4f, -21.2f));
-	model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	puerta.Draw(shader);
-	
-
-	//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
-
-	//-------------------------------------------Pared 1----------------------------------------------------------//
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv2.Draw(shader);
-	glEnable(GL_BLEND);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.3f));
-	model = glm::scale(model, glm::vec3(10.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv1.Draw(shader);
-	glEnable(GL_BLEND);
-
-	//Ventana
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(-50.0f, 0.0f, 0.0f));
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.15f));
-	model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	ventana.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-
-	//-------------------------------------------Pared 2----------------------------------------------------------//
-	model = glm::mat4(1.0f);
-
-	temp = model = glm::translate(model, glm::vec3(-5.0f, 0.0f, -20.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(40.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-
-
-	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(40.0f, 1.0f, 5.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-
-	//-------------------------------------------Pared 3----------------------------------------------------------//
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(1.0f, 0.0f, -40.0f));
-	model = glm::scale(model, glm::vec3(12.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, 0.3f));
-	model = glm::scale(model, glm::vec3(12.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-	//-------------------------------------------Pared 4--[TIENE VENTANA]-----------------------------------------------//
-
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -40.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv2.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	temp = model = glm::translate(temp, glm::vec3(0.0f, 0.0f, 0.3f));
-	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv1.Draw(shader);
-	
-	glEnable(GL_BLEND);
-
-	//Ventana
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
-	model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	ventana.Draw(shader);
-	glEnable(GL_BLEND);
-
-	//-------------------------------------------Pared 5----------------------------------------------------------//
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(15.0f, 0.0f, -30.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(20.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-
-	model = glm::translate(temp, glm::vec3(-0.15f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(20.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-
-	//-------------------------------------------Pared 6----------------------------------------------------------//
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(15.0f, 0.0f, -15.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(-0.3f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-
-
-	//-------------------------------------------Pared 7----------------------------------------------------------//
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(15.0f, 0.0f, -5.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-	temp = model = glm::translate(temp, glm::vec3(-0.3f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.15f, 0.0f, 5.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.3f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-
-
-	//Paredes de enmedio
-
-	//-------------------------------------------Pared 8---------------------------------------------------------//
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(5.0f, 0.0f, -5.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(-0.3f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	//-------------------------------------------Pared 9----------------------------------------------------------//
-	//Cuarto Alfonso
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(-2.5f, 0.0f, -9.8f));
-	model = glm::scale(model, glm::vec3(5.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-
-
-	model = glm::translate(temp, glm::vec3(1.0f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(7.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	//Puerta Cuarto Alfonso
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(1.0f, 0.0f, -9.8f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(4.5f, 0.0f, -9.8f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(3.0f, 2.0f, -9.8f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-	//-------------------------------------------Pared 10----------------------------------------------------------//
-
-	//Baño
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(-0.2f, 0.0f, -8.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(4.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-
-	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(4.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(-4.75f, 0.0f, -8.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(4.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-
-
-
-	//-------------------------------------------Pared 11----------------------------------------------------------//
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(-3.5f, 0.0f, -6.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(3.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(-1.0f, 2.0f, -6.0f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(-0.1f, -0.5f, -6.0f));
-	model = glm::scale(model, glm::vec3(0.2f, 4.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	
-
-	
-
-
-	//-------------------------------------------Pared 9B----------------------------------------------------------//
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(5.5f, 0.0f, -9.8f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, 2.0f, -9.8f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(11.5f, 0.0f, -9.8f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(7.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv2.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(7.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv1.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-	//Ventana
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.10f));
-	model = glm::scale(model, glm::vec3(4.0f, 3.0f, 0.6f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	ventana.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-
-	//-------------------------------------------Pared 12----------------------------------------------------------//
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -19.8f));
-	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::translate(temp, glm::vec3(-1.25f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(5.5f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	lavado.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(2.75f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(2.5f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	maderablanca.Draw(shader);
-
-
-
-
-
-
-	
-	//-------------------------------------------Pared 13----------------------------------------------------------//
-
-
-
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, 0.0f, -25.0f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(6.0f, 1.0f, 5.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	//Puerta Lavado
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, 2.0f, -21.0f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	lavado.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.2f, 0.0f, -23.0f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 5.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	lavado.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, 0.0f, -19.9f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.2f, 1.0f, 5.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-	//Puerta Baño 2
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.2f, 0.0f, -26.0f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(4.0f, 1.0f, 5.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, 2.0f, -29.0f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-	
-
-
-	
-
-
-	//-------------------------------------------Pared 13B----------------------------------------------------------//
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(9.75f, 0.0f, -24.0f));
-	model = glm::scale(model, glm::vec3(5.5f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	lavado.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(5.5f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-
-	
-	
-
-
-
-	//-------------------------------------------Pared 14 y 15----------------------------------------------------------//
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(12.3f, 2.0f, -21.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	lavado.Draw(shader);
-
-
-	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	maderablanca.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(12.3f, 0.0f, -23.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
-	lavado.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(12.3f, 0.0f, -27.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model =glm::scale(model, glm::vec3(6.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
-	bath.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(12.5f, 0.0f, -26.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
-	maderablanca.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(14.75f, 0.0f, -25.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
-	maderablanca.Draw(shader);
-
-	
-	
-	//-------------------------------------------Pared 16----------------------------------------------------------//
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -30.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::translate(temp, glm::vec3(-1.25f, 0.0f, 0.2f));
-	model = glm::scale(model, glm::vec3(5.5f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(2.75f, 0.0f, 0.2f));
-	model = glm::scale(model, glm::vec3(2.5f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	maderablanca.Draw(shader);
-
-
-
-	//-------------------------------------------Pared 17----------------------------------------------------------//
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(-0.5f, 0.0f, -20.0f));
-	model = glm::scale(model, glm::vec3(9.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv1.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(9.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv1.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-	//Ventana
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
-	model = glm::scale(model, glm::vec3(4.5f, 3.0f, 0.8f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	ventana.Draw(shader);
-	glEnable(GL_BLEND);
-
-	
-
-	//-------------------------------------------Pared 18----------------------------------------------------------//
-
-
-	model = glm::mat4(1.0f);
-	temp=model = glm::translate(model, glm::vec3(4.0f, 2.0f, -25.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 1.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(-0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 1.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(4.0f, 0.0f, -20.5f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(-0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(4.0f, 0.0f, -30.5f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(-0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-
-
-
-	//-------------------------------------------Pared 19----------------------------------------------------------//
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(2.5f, 0.0f, -32.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(3.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(3.5f, 0.0f, -32.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(2.0f, 5.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(5.5f, 2.0f, -32.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
-	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-	
-
-
-
-	
-
-	//-------------------------------------------Pared 20----------------------------------------------------------//
-
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, 0.0f, -36.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, 2.0f, -31.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(7.0f, -0.5f, -29.9f));
-
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.2f, 1.0f, 4.0f));
-
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	//-------------------------------------------Pared 21----------------------------------------------------------//
-	
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::mat4(1.0f);
-	temp = model = glm::translate(model, glm::vec3(1.0f, 0.0f, -36.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv1.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-	
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	paredv1.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-
-	//Ventana
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	model = glm::translate(temp, glm::vec3(0.1f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.4f, 3.0f, 5.0f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	ventana.Draw(shader);
-	glEnable(GL_BLEND);
-
-
-	/*----------------------------------------Suelo------------------------------------*/
-
-	//Cuarto Alfonso
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-
-
-	model = glm::translate(temp, glm::vec3(0.0f, 0.1f, -3.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 6.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	suelo.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(2.5f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(0.0f, 0.1f, -8.0f));
-	model = glm::scale(model, glm::vec3(5.0f, 1.0f, 4.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	suelo.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-2.5f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(0.0f, 0.1f, -8.0f));
-	model = glm::scale(model, glm::vec3(5.0f, 1.0f, 4.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-	
-
-
-	//Garaje
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(10.0f, 0.1f, -5.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	garage.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.40f, 0.0f));
-	model = glm::translate(temp, glm::vec3(9.85f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(9.7f, 0.2, 1.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	garage.Draw(shader);
-
-	
-
-	//Sala Comedor
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(5.0f, 0.1f, -15.0f));
-	model = glm::scale(model, glm::vec3(20.0f, 1.0f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	suelo.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(5.5f, 0.1f, -26.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 12.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	suelo.Draw(shader);
-
-	
-	
-
-	//Lavado
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(9.75f, 0.1f, -22.0f));
-	model = glm::scale(model, glm::vec3(5.5f, 1.0f, 4.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	lavado.Draw(shader);
-
-	
-
-	//Jardin
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(13.75f, 0.1f, -25.0f));
-	model = glm::scale(model, glm::vec3(2.5f, 1.0f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pasto.Draw(shader);
-
-	
-	//Baño2
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(9.75f, 0.1f, -27.0f));
-	model = glm::scale(model, glm::vec3(5.5f, 1.0f, 6.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-	
-	//Cuarto Joaquin
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(11.0f, 0.1f, -35.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	suelo.Draw(shader);
-
-
-
-	//Caurto Sergio
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(4.0f, 0.1f, -36.0f));
-	model = glm::scale(model, glm::vec3(6.0f, 1.0f, 8.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	suelo.Draw(shader);
-
-	//Descanso
-	
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(-0.5f, 0.1f, -24.0f));
-	model = glm::scale(model, glm::vec3(9.0f, 1.0f, 8.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	jardin.Draw(shader);
-	
-	//Piscina
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(-2.0f, 0.1f, -29.0f));
-	model = glm::scale(model, glm::vec3(6.0f, 1.0f, 2.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	garage.Draw(shader);
-
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(2.5f, 0.1f, -30.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 4.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	garage.Draw(shader);
-
-	
-
-
-	/*----------------------------Techo------------------------------------*/
-		//Cuarto Alfonso
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-
-
-	model = glm::translate(temp, glm::vec3(0.0f, -0.1f, -3.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 6.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	suelo.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(2.5f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(0.0f, -0.1f, -8.0f));
-	model = glm::scale(model, glm::vec3(5.0f, 1.0f, 4.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-2.5f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(0.0f, -0.1f, -8.0f));
-	model = glm::scale(model, glm::vec3(5.0f, 1.0f, 4.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-
-	//Garaje
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(10.0f, -0.1f, -5.0f));
-	model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	//Sala Comedor
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(5.0f, -0.1f, -15.0f));
-	model = glm::scale(model, glm::vec3(20.0f, 1.0f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(5.5f,-0.1f, -26.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 12.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-
-	//Lavado
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(9.75f, -0.1f, -22.0f));
-	model = glm::scale(model, glm::vec3(5.5f, 1.0f, 4.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	lavado.Draw(shader);
-
-
-
-
-	//Baño2
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(9.75f, -0.1f, -27.0f));
-	model = glm::scale(model, glm::vec3(5.5f, 1.0f, 6.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	bath.Draw(shader);
-
-
-	//Cuarto Joaquin
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(11.0f, -0.1f, -35.0f));
-	model = glm::scale(model, glm::vec3(8.0f, 1.0f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-
-
-	//Caurto Sergio
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(4.0f, -0.1f, -36.0f));
-	model = glm::scale(model, glm::vec3(6.0f, 1.0f, 8.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	pared_interior.Draw(shader);
-
-	//Descanso
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(-0.5f, -0.1f, -24.0f));
-	model = glm::scale(model, glm::vec3(9.0f, 1.0f, 8.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	jardin.Draw(shader);
-
-	//Piscina
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
-	model = glm::translate(temp, glm::vec3(2.5f, -0.1f, -30.0f));
-	model = glm::scale(model, glm::vec3(3.0f, 1.0f, 4.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	jardin.Draw(shader);
-
-
-	//Techo Exterior
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
-	model = glm::translate(temp, glm::vec3(10.0f, 0.0f, -10.0f));
-	model = glm::scale(model, glm::vec3(20.0f, 0.2f, 20.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
-	model = glm::translate(temp, glm::vec3(8.75f, 0.0f, -24.0f));
-	model = glm::scale(model, glm::vec3(17.5f, 0.2f, 8.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
-	model = glm::translate(temp, glm::vec3(13.0f, 0.0f, -35.0f));
-	model = glm::scale(model, glm::vec3(14.0f, 0.2f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
-	model = glm::translate(temp, glm::vec3(11.75f, 0.0f, -29.0f));
-	model = glm::scale(model, glm::vec3(11.5f, 0.2f, 2.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
-	model = glm::translate(temp, glm::vec3(0.1f, 0.0f, -34.0f));
-	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 12.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-	
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
-	model = glm::translate(temp, glm::vec3(3.0f, 0.0f, -39.85f));
-	model = glm::scale(model, glm::vec3(6.0f, 0.2f, 0.3f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-
-	model = glm::mat4(1.0f);
-	temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
-	model = glm::translate(temp, glm::vec3(19.85f, 0.0f, -25.0f));
-	model = glm::scale(model, glm::vec3(0.3f, 0.2f, 10.0f));
-	shader.setMat4("model", model);
-	shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
-	techo.Draw(shader);
-
-
-	//Skybox
-
-	SkyboxShader.use();
-	skybox.Draw(SkyboxShader, view, projection, camera);
 }
-
+*/
 
 int main()
 {
@@ -2301,7 +418,7 @@ int main()
 
 	glEnable(GL_DEPTH_TEST);
 	
-	Shader staticShader("Shaders/shader_Lights.vs", "Shaders/shader_Lights.fs");
+	Shader shader("Shaders/shader_Lights.vs", "Shaders/shader_Lights.fs");
 	Shader skyboxShader("Shaders/skybox.vs", "Shaders/skybox.fs");
 	Shader animShader("Shaders/anim.vs", "Shaders/anim.fs");
 
@@ -2329,7 +446,7 @@ int main()
 
 	//HOUSE MODELS - TEXTURES
 	Model pastoExt("resources/objects/Texplanes/pasto.fbx");
-	Model pared_ext("resources/objects/Texplanes/pared.fbx");
+	Model pared("resources/objects/Texplanes/pared.fbx");
 	Model ventana("resources/objects/Ventana/ventana4.fbx");
 	Model bath("resources/objects/Texplanes/mosaic.fbx");
 	Model garage("resources/objects/Texplanes/garage.fbx");
@@ -2371,10 +488,14 @@ int main()
 
 
 	//Camas
-	/**/
+	/*
 	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
 	Model camaA("resources/objects/rooms/camas/bed3.fbx");
+	*/
+	Model camaJ("resources/objects/rooms/beds/cama3.fbx");
+	Model camaS("resources/objects/rooms/beds/cama1.fbx");
+	Model camaA("resources/objects/rooms/beds/cama2.fbx");
 	
 
 	//Baños
@@ -2389,8 +510,15 @@ int main()
 	Model cancel1("resources/objects/piscinaLavanderia/cancel/cancel1pt1.fbx");
 	Model cancel2("resources/objects/piscinaLavanderia/cancel/cancel2pt2.fbx");
 
+	/*Modelos ANimados personajes Yasuo, Xayah, Soraka*/
+	ModelAnim yasuo("resources/personajes/yasuo/yasuothd.fbx");
+	yasuo.initShaders(animShader.ID);
 
+	ModelAnim xayah("resources/personajes/xayah/xayahd.fbx");
+	xayah.initShaders(animShader.ID);
 
+	ModelAnim soraka("resources/personajes/soraka/sorakahd.fbx");
+	soraka.initShaders(animShader.ID);
 
 	/*-------------------------ANIMACION CARRO--------------------------------------------*/
 	KeyFrame[0].posCarX = 11.0f;
@@ -2425,9 +553,7 @@ int main()
 
 
 	/*-------------------------ANIMACION Y OBJETOS--------------------------------------------*/
-	ModelAnim yasuo("resources/personajes/yasuo/yasuothd.fbx");
-	yasuo.initShaders(animShader.ID);
-
+	
 
 
 
@@ -2451,21 +577,52 @@ int main()
 		// ------
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		shader.use();
+		//Setup Advanced Lights
+		shader.setVec3("viewPos", camera.Position);
+		shader.setVec3("dirLight.direction", lightDirection);
+		shader.setVec3("dirLight.ambient", glm::vec3(day, 0.2f, night));
+		shader.setVec3("dirLight.diffuse", glm::vec3(difus, difus, difus));
+		shader.setVec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+
+		shader.setVec3("pointLight[0].position", lightPosition);
+		shader.setVec3("pointLight[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[0].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[0].specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setFloat("pointLight[0].constant", 0.8f);
+		shader.setFloat("pointLight[0].linear", 0.009f);
+		shader.setFloat("pointLight[0].quadratic", 0.032f);
+
+		shader.setVec3("pointLight[1].position", glm::vec3(0.0, 0.0f, 0.0f));
+		shader.setVec3("pointLight[1].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[1].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[1].specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setFloat("pointLight[1].constant", 1.0f);
+		shader.setFloat("pointLight[1].linear", 0.009f);
+		shader.setFloat("pointLight[1].quadratic", 0.032f);
+
+		shader.setFloat("material_shininess", 32.0f);
+
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 tmp = glm::mat4(1.0f);
-		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 5.0f, 500.0f);
+		// view/projection transformations
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.5f, 10000.0f);
 		glm::mat4 view = camera.GetViewMatrix();
+		shader.setMat4("projection", projection);
+		shader.setMat4("view", view);
+
+
 		glm::vec3 lightColor = glm::vec3(1.0f);
 		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
 		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.75f);
-	
-		// Escenario
-		// -------------------------------------------------------------------------------------------------------------------------
 
+		//AnimShaders
 
 		animShader.use();
 		animShader.setMat4("projection", projection);
 		animShader.setMat4("view", view);
+
 		animShader.setVec3("material.specular", glm::vec3(0.5f));
 		animShader.setFloat("material.shininess", 32.0f);
 		animShader.setVec3("light.ambient", ambientColor);
@@ -2473,19 +630,1874 @@ int main()
 		animShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 		animShader.setVec3("light.direction", lightDirection);
 		animShader.setVec3("viewPos", camera.Position);
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, -4.0f, -20.0f));
-		model = glm::scale(model, glm::vec3(0.015f));
+
+		//Yasuo
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -2.3f, -21.5f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(0.013f));	// it's a bit too big for our scene, so scale it down
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", model);
 		yasuo.Draw(animShader);
 
-		display(projection, view, staticShader, animShader, skyboxShader, skybox, pastoExt, pared_ext, ventana, bath, garage, jardin, lavado, maderablanca, pared_interior, pasto, suelo, techo,
-			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer, panel, wc, banera, lavamanos, closet,
-			puerta, piscina, cancel1, cancel2, lampara, pant, esc1, silla
-			, camaJ, camaS, camaA
-		);
+		//Xayah
 
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.5f, -2.3f, -24.0f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(0.018f));	// it's a bit too big for our scene, so scale it down
+		model = glm::rotate(model, glm::radians(40.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		animShader.setMat4("model", model);
+		xayah.Draw(animShader);
+
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, -2.3f, -24.0f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(0.018f));	// it's a bit too big for our scene, so scale it down
+		model = glm::rotate(model, glm::radians(-40.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		animShader.setMat4("model", model);
+		soraka.Draw(animShader);
+
+		/*********************************************************/
+		shader.use();
+		glm::mat4 temp = glm::mat4(1.0f);
+		//CANCELES - POOL DOORS
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(3.85f, -0.4f, -25.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 3.8f, 8.0f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		shader.setMat4("model", model);
+		cancel1.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+		//es el que se mueve
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(3.85f, -0.4f, -22.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 3.8f, 10.0f));
+		//para el movimiento
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, movCan));
+		shader.setMat4("model", model);
+		cancel2.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+		//Piscina
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-1.9f, -2.5f, -33.0f));
+		model = glm::scale(model, glm::vec3(0.02f, 0.01f, 0.02f));
+		shader.setMat4("model", model);
+		piscina.Draw(shader);
+
+		//Carro
+		model = glm::mat4(1.0f);
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(posCarX, posCarY, posCarZ));
+		model = glm::rotate(model, glm::radians(rotCarY), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(0.07f));
+		shader.setMat4("model", model);
+		carro.Draw(shader);
+
+
+		//PASTO GLOBAL
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(20.0f, -2.5f, 0.0f));
+		model = glm::scale(model, glm::vec3(300.0f));
+		shader.setMat4("model", model);
+		pastoExt.Draw(shader);
+
+
+		//PISO 
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(10.0f, -2.4f, 5.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
+		shader.setMat4("model", model);
+		garage.Draw(shader);
+
+
+		//CALLE - acera
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(45.0f, -2.3f, 9.0f));
+		model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
+		shader.setMat4("model", model);
+		pared_interior.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-45.0f, -2.3f, 9.0f));
+		model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
+		shader.setMat4("model", model);
+		pared_interior.Draw(shader);
+
+		//El otro lado de la calle
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(45.0f, -2.3f, 22.0f));
+		model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
+		shader.setMat4("model", model);
+		pared_interior.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-45.0f, -2.3f, 22.0f));
+		model = glm::scale(model, glm::vec3(90.0f, 1.0f, 3.0f));
+		shader.setMat4("model", model);
+		pared_interior.Draw(shader);
+
+		//STREET
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(85.0f, -2.4f, 16.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.24f, 0.01f, 0.8f));
+		shader.setMat4("model", model);
+		street.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-35.0f, -2.4f, 16.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.24f, 0.01f, 0.8f));
+		shader.setMat4("model", model);
+		street.Draw(shader);
+
+
+		//------------------------------------------------------------------Cocina - Comedor- Sala ----------------------------------------------------------------------------------------//
+
+		//LAMPARAS
+
+		/*FOR MUSIC AMBIENTE*/
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-2.7f, 1.4f, -24.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-1.8f, 1.4f, -24.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-0.9f, 1.4f, -24.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 1.4f, -24.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.9f, 1.4f, -24.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+
+
+		//cuarto murry
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 1.4f, -4.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+
+		// Sala - conina
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 1.4f, -14.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+
+		//cocina
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(9.0f, 1.4f, -14.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(9.0f, 1.4f, -14.5f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(9.0f, 1.4f, -15.0f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
+
+
+
+
+		//cocina integral
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(18.0f, -2.4f, -24.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		model = glm::scale(model, glm::vec3(0.002f, 0.0022f, 0.002f));
+		shader.setMat4("model", model);
+		cocina.Draw(shader);
+
+		//tv-mueble
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-3.5f, -2.3f, -14.5f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, .0f));
+		model = glm::scale(model, glm::vec3(0.35f));
+		shader.setMat4("model", model);
+		ttv.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(8.5f, -2.3f, -15.0f));
+		model = glm::scale(model, glm::vec3(2.3f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		shader.setMat4("model", model);
+		mesaComer.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(2.5f, -2.3f, -14.0f));
+		model = glm::scale(model, glm::vec3(0.02f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		shader.setMat4("model", model);
+		sofa.Draw(shader);
+
+		/*--------------------------------Escritorio----------------------------------------*/
+
+		//Escritorio Alfonso
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(3.5f, 0.0f, -3.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -2.1f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.002f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		pant.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(3.0f, 0.0f, -3.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.004f, 0.005f, 0.003f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		esc1.Draw(shader);
+
+		//Silla
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(1.0f, 0.0f, -3.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
+		model = glm::rotate(model, glm::radians(giroSilla), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		silla.Draw(shader);
+
+
+
+		//Escritorio Joaquin
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(13.0f, 0.0f, -32.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -2.1f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.002f, 0.002f, 0.002f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		shader.setMat4("model", model);
+		pant.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(12.0f, 0.0f, -32.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.004f, 0.005f, 0.003f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		esc1.Draw(shader);
+
+		//Silla
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(10.5f, 0.0f, -32.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.004f, 0.003f, 0.004f));
+		model = glm::rotate(model, glm::radians(giroSilla), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		silla.Draw(shader);
+
+
+		//Escritorio Sergio
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(3.0f, 0.0f, -33.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.0015f, 0.002f, 0.002f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		shader.setMat4("model", model);
+		pant.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(3.0f, 0.0f, -34.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.0025f, 0.005f, 0.003f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		esc1.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(3.0f, 0.0f, -35.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.003f, 0.003f, 0.003f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		silla.Draw(shader);
+
+		/*-----------------------------------------------------------------BAÑOS--------------------------------------------------------------------------------------------*/
+		//Baño 1
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-6.0f, -2.5f, -6.0f));
+		model = glm::translate(temp, glm::vec3(-1.0f, 0.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.1f, 2.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		shader.setMat4("model", model);
+		wc.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
+		model = glm::translate(model, glm::vec3(-3.75f, 0.0f, -8.0f));
+		model = glm::scale(model, glm::vec3(0.02f, 0.025f, 0.0175f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		banera.Draw(shader);
+
+		//Lavamanos
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(temp, glm::vec3(-0.1f, -0.5f, -7.0f));
+		model = glm::scale(model, glm::vec3(0.025f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		shader.setMat4("model", model);
+		lavamanos.Draw(shader);
+
+
+		//Baño 2
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-6.0f, -2.5f, -6.0f));
+		model = glm::translate(temp, glm::vec3(15.5f, 0.0f, -25.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.1f, 2.0f));
+		model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		wc.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
+		model = glm::translate(model, glm::vec3(11.0f, 0.0f, -26.0f));
+		model = glm::scale(model, glm::vec3(0.02f, 0.025f, 0.0175f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		banera.Draw(shader);
+
+		//Lavamanos
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(temp, glm::vec3(9.25f, -1.0f, -24.25f));
+		model = glm::scale(model, glm::vec3(0.025f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		shader.setMat4("model", model);
+		lavamanos.Draw(shader);
+
+
+
+		//------------------------------------------------------------------PSICINA - EXT ----------------------------------------------------------------------------------------//
+
+		//Lavadora
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(8.2f, -2.4f, -23.0f));
+		//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		model = glm::scale(model, glm::vec3(0.003f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, .0f));
+
+		shader.setMat4("model", model);
+		lavadora.Draw(shader);
+
+		//Camara - sala
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(14.85f, 0.8f, -10.0f));
+		//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		model = glm::scale(model, glm::vec3(0.007f));
+		model = glm::rotate(model, glm::radians(-135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = model = glm::rotate(model, glm::radians(giroCamaras), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		cameraObj.Draw(shader);
+
+
+		//Camara - piscina
+		model = glm::mat4(1.0f);
+
+		model = glm::translate(model, glm::vec3(-4.8f, 1.0f, -39.8f));
+		//	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, .0f));
+		model = glm::scale(model, glm::vec3(0.007f));
+		model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = model = glm::rotate(model, glm::radians(giroCamaras), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		cameraObj.Draw(shader);
+
+
+		//Paneles con base
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.7f, 0.0f));
+		model = glm::translate(temp, glm::vec3(5.0f, 0.0f, -15.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 0.3f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+		//Panel 1
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 2.6f, -15.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.25f));
+		model = glm::rotate(model, glm::radians(giroPanel), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		panel.Draw(shader);
+
+
+
+		//Panel con base
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.7f, 0.0f));
+		model = glm::translate(temp, glm::vec3(15.0f, 0.0f, -15.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 0.3f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+		//Panel 2
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(10.0f, 2.6f, -15.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.25f));
+		model = glm::rotate(model, glm::radians(giroPanel), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		panel.Draw(shader);
+
+		/*-------------------------------------------Objetos Cuartos----------------------------------------------*/
+
+
+		//Camas
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+		model = glm::translate(temp, glm::vec3(17.5f, -2.3f, -36.0f));
+		model = glm::scale(model, glm::vec3(0.017f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		camaJ.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+		model = glm::translate(temp, glm::vec3(9.0f, -2.3f, -37.5f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.017f));
+		shader.setMat4("model", model);
+		camaS.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+		model = glm::translate(temp, glm::vec3(2.5f, -2.3f, -3.0f));
+		model = glm::scale(model, glm::vec3(0.017f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		camaA.Draw(shader);
+
+		////////////////////CLOSET/////////////////////////
+
+		//Closet - cuerto murry
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.6f, -2.4f, -8.05f));
+		model = glm::scale(model, glm::vec3(0.002f, 0.0015f, 0.001f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		closet.Draw(shader);
+
+
+		//Closet - cuerto sergio
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(6.5f, -2.4f, -36.9f));
+		model = glm::scale(model, glm::vec3(0.0015f, 0.0015f, 0.002f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		closet.Draw(shader);
+
+
+		//Closet - cuerto joaco
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(7.5f, -2.4f, -36.9f));
+		model = glm::scale(model, glm::vec3(0.0015f, 0.0015f, 0.002f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		closet.Draw(shader);
+
+
+		////////////////////PUERTAS/////////////////////////
+		//Puerta principal 
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(7.0f, -2.4f, -10.0f));
+		model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
+		shader.setMat4("model", model);
+		puerta.Draw(shader);
+
+		//puerta cuarto murry
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(3.0f, -2.4f, -10.0f));
+		model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
+		shader.setMat4("model", model);
+		puerta.Draw(shader);
+
+		//puerta baño cuarto murry
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-1.1f, -2.4f, -6.0f));
+		model = glm::scale(model, glm::vec3(0.025f, 0.02f, 0.02f));
+		shader.setMat4("model", model);
+		puerta.Draw(shader);
+
+
+		//PUERTAS PEGADAS
+
+		//puerta baño
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(7.0f, -2.4f, -28.9f));
+		model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		puerta.Draw(shader);
+
+		//puerta cuarto joaco
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(7.0f, -2.4f, -31.0f));
+		model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		shader.setMat4("model", model);
+		puerta.Draw(shader);
+
+		//Cuarto sergio 
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(5.7f, -2.4f, -32.0f));
+		model = glm::scale(model, glm::vec3(0.03f, 0.02f, 0.02f));
+		shader.setMat4("model", model);
+		puerta.Draw(shader);
+
+		//CUARTO LAVADO
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(12.2f, -2.4f, -21.2f));
+		model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.03f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		puerta.Draw(shader);
+
+
+		//------------------------------------------------------------------Construccion Casa-----------------------------------------------------------------------------------------//
+
+		//-------------------------------------------Pared 1----------------------------------------------------------//
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv2.Draw(shader);
+		glEnable(GL_BLEND);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.3f));
+		model = glm::scale(model, glm::vec3(10.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv1.Draw(shader);
+		glEnable(GL_BLEND);
+
+		//Ventana
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-50.0f, 0.0f, 0.0f));
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.15f));
+		model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		ventana.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+
+		//-------------------------------------------Pared 2----------------------------------------------------------//
+		model = glm::mat4(1.0f);
+
+		temp = model = glm::translate(model, glm::vec3(-5.0f, 0.0f, -20.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(40.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+
+
+		model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(40.0f, 1.0f, 5.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+
+		//-------------------------------------------Pared 3----------------------------------------------------------//
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(1.0f, 0.0f, -40.0f));
+		model = glm::scale(model, glm::vec3(12.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, 0.3f));
+		model = glm::scale(model, glm::vec3(12.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+		//-------------------------------------------Pared 4--[TIENE VENTANA]-----------------------------------------------//
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -40.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv2.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		temp = model = glm::translate(temp, glm::vec3(0.0f, 0.0f, 0.3f));
+		model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv1.Draw(shader);
+
+		glEnable(GL_BLEND);
+
+		//Ventana
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
+		model = glm::scale(model, glm::vec3(5.0f, 3.0f, 0.8f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		ventana.Draw(shader);
+		glEnable(GL_BLEND);
+
+		//-------------------------------------------Pared 5----------------------------------------------------------//
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(15.0f, 0.0f, -30.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+
+		model = glm::translate(temp, glm::vec3(-0.15f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+
+		//-------------------------------------------Pared 6----------------------------------------------------------//
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(15.0f, 0.0f, -15.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(-0.3f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+
+
+		//-------------------------------------------Pared 7----------------------------------------------------------//
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(15.0f, 0.0f, -5.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+		temp = model = glm::translate(temp, glm::vec3(-0.3f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.15f, 0.0f, 5.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+
+
+		//Paredes de enmedio
+
+		//-------------------------------------------Pared 8---------------------------------------------------------//
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(5.0f, 0.0f, -5.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(-0.3f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		//-------------------------------------------Pared 9----------------------------------------------------------//
+		//Cuarto Alfonso
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(-2.5f, 0.0f, -9.8f));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+
+		model = glm::translate(temp, glm::vec3(1.0f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		//Puerta Cuarto Alfonso
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(1.0f, 0.0f, -9.8f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(4.5f, 0.0f, -9.8f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(3.0f, 2.0f, -9.8f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+		//-------------------------------------------Pared 10----------------------------------------------------------//
+
+		//Baño
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(-0.2f, 0.0f, -8.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+		model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(-4.75f, 0.0f, -8.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+
+
+		//-------------------------------------------Pared 11----------------------------------------------------------//
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(-3.5f, 0.0f, -6.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(3.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(-1.0f, 2.0f, -6.0f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(-0.1f, -0.5f, -6.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 4.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+
+
+
+		//-------------------------------------------Pared 9B----------------------------------------------------------//
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(5.5f, 0.0f, -9.8f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.0f, 2.0f, -9.8f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(11.5f, 0.0f, -9.8f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv2.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv1.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+		//Ventana
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.10f));
+		model = glm::scale(model, glm::vec3(4.0f, 3.0f, 0.6f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		ventana.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+
+		//-------------------------------------------Pared 12----------------------------------------------------------//
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -19.8f));
+		model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::translate(temp, glm::vec3(-1.25f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(5.5f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		lavado.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(2.75f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(2.5f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		maderablanca.Draw(shader);
+
+
+
+
+
+
+
+		//-------------------------------------------Pared 13----------------------------------------------------------//
+
+
+
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.0f, 0.0f, -25.0f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 1.0f, 5.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		//Puerta Lavado
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.0f, 2.0f, -21.0f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		lavado.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.2f, 0.0f, -23.0f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 5.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		lavado.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.0f, 0.0f, -19.9f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 1.0f, 5.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+		//Puerta Baño 2
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.2f, 0.0f, -26.0f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 1.0f, 5.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.0f, 2.0f, -29.0f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+		model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+
+
+
+
+
+		//-------------------------------------------Pared 13B----------------------------------------------------------//
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(9.75f, 0.0f, -24.0f));
+		model = glm::scale(model, glm::vec3(5.5f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		lavado.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(5.5f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+
+
+
+
+
+		//-------------------------------------------Pared 14 y 15----------------------------------------------------------//
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(12.3f, 2.0f, -21.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		lavado.Draw(shader);
+
+
+		model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		maderablanca.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(12.3f, 0.0f, -23.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
+		lavado.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(12.3f, 0.0f, -27.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
+		bath.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(12.5f, 0.0f, -26.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
+		maderablanca.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(14.75f, 0.0f, -25.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
+		maderablanca.Draw(shader);
+
+
+
+		//-------------------------------------------Pared 16----------------------------------------------------------//
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(11.0f, 0.0f, -30.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::translate(temp, glm::vec3(-1.25f, 0.0f, 0.2f));
+		model = glm::scale(model, glm::vec3(5.5f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(2.75f, 0.0f, 0.2f));
+		model = glm::scale(model, glm::vec3(2.5f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		maderablanca.Draw(shader);
+
+
+
+		//-------------------------------------------Pared 17----------------------------------------------------------//
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(-0.5f, 0.0f, -20.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv1.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(9.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv1.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+		//Ventana
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.15f));
+		model = glm::scale(model, glm::vec3(4.5f, 3.0f, 0.8f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		ventana.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+
+		//-------------------------------------------Pared 18----------------------------------------------------------//
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(4.0f, 2.0f, -25.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 1.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(-0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 1.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(4.0f, 0.0f, -20.5f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(-0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(4.0f, 0.0f, -30.5f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 5.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(-0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+
+
+
+		//-------------------------------------------Pared 19----------------------------------------------------------//
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(2.5f, 0.0f, -32.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(3.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(3.5f, 0.0f, -32.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(2.0f, 5.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(5.5f, 2.0f, -32.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.0f, -0.2f));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+
+
+
+		//-------------------------------------------Pared 20----------------------------------------------------------//
+
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.0f, 0.0f, -36.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.0f, 2.0f, -31.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(7.0f, -0.5f, -29.9f));
+
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 1.0f, 4.0f));
+
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		//-------------------------------------------Pared 21----------------------------------------------------------//
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::mat4(1.0f);
+		temp = model = glm::translate(model, glm::vec3(1.0f, 0.0f, -36.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv1.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(temp, glm::vec3(0.2f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		paredv1.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+
+		//Ventana
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		model = glm::translate(temp, glm::vec3(0.1f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 3.0f, 5.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		ventana.Draw(shader);
+		glEnable(GL_BLEND);
+
+
+		/*----------------------------------------Suelo------------------------------------*/
+
+		//Cuarto Alfonso
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+
+
+		model = glm::translate(temp, glm::vec3(0.0f, 0.1f, -3.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 6.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		suelo.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(2.5f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(0.0f, 0.1f, -8.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 1.0f, 4.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		suelo.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-2.5f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(0.0f, 0.1f, -8.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 1.0f, 4.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+
+
+		//Garaje
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(10.0f, 0.1f, -5.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		garage.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.40f, 0.0f));
+		model = glm::translate(temp, glm::vec3(9.85f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(9.7f, 0.2, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		garage.Draw(shader);
+
+
+
+		//Sala Comedor
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(5.0f, 0.1f, -15.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		suelo.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(5.5f, 0.1f, -26.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 12.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		suelo.Draw(shader);
+
+
+
+
+		//Lavado
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(9.75f, 0.1f, -22.0f));
+		model = glm::scale(model, glm::vec3(5.5f, 1.0f, 4.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		lavado.Draw(shader);
+
+
+
+		//Jardin
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(13.75f, 0.1f, -25.0f));
+		model = glm::scale(model, glm::vec3(2.5f, 1.0f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pasto.Draw(shader);
+
+
+		//Baño2
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(9.75f, 0.1f, -27.0f));
+		model = glm::scale(model, glm::vec3(5.5f, 1.0f, 6.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+		//Cuarto Joaquin
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(11.0f, 0.1f, -35.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		suelo.Draw(shader);
+
+
+
+		//Caurto Sergio
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(4.0f, 0.1f, -36.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 1.0f, 8.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		suelo.Draw(shader);
+
+		//Descanso
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(-0.5f, 0.1f, -24.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 1.0f, 8.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		jardin.Draw(shader);
+
+		//Piscina
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(-2.0f, 0.1f, -29.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 1.0f, 2.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		garage.Draw(shader);
+
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, -2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(2.5f, 0.1f, -30.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 4.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		garage.Draw(shader);
+
+
+
+
+		/*----------------------------Techo------------------------------------*/
+			//Cuarto Alfonso
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+
+
+		model = glm::translate(temp, glm::vec3(0.0f, -0.1f, -3.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 6.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		suelo.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(2.5f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(0.0f, -0.1f, -8.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 1.0f, 4.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-2.5f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(0.0f, -0.1f, -8.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 1.0f, 4.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+
+		//Garaje
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(10.0f, -0.1f, -5.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		//Sala Comedor
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(5.0f, -0.1f, -15.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(5.5f, -0.1f, -26.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 12.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+
+		//Lavado
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(9.75f, -0.1f, -22.0f));
+		model = glm::scale(model, glm::vec3(5.5f, 1.0f, 4.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		lavado.Draw(shader);
+
+
+
+
+		//Baño2
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(9.75f, -0.1f, -27.0f));
+		model = glm::scale(model, glm::vec3(5.5f, 1.0f, 6.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		bath.Draw(shader);
+
+
+		//Cuarto Joaquin
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(11.0f, -0.1f, -35.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+
+
+		//Caurto Sergio
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(4.0f, -0.1f, -36.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 1.0f, 8.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		pared_interior.Draw(shader);
+
+		//Descanso
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(-0.5f, -0.1f, -24.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 1.0f, 8.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		jardin.Draw(shader);
+
+		//Piscina
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(0.0f, 2.4f, 0.0f));
+		model = glm::translate(temp, glm::vec3(2.5f, -0.1f, -30.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 4.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		jardin.Draw(shader);
+
+
+		//Techo Exterior
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+		model = glm::translate(temp, glm::vec3(10.0f, 0.0f, -10.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 0.2f, 20.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+		model = glm::translate(temp, glm::vec3(8.75f, 0.0f, -24.0f));
+		model = glm::scale(model, glm::vec3(17.5f, 0.2f, 8.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+		model = glm::translate(temp, glm::vec3(13.0f, 0.0f, -35.0f));
+		model = glm::scale(model, glm::vec3(14.0f, 0.2f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+		model = glm::translate(temp, glm::vec3(11.75f, 0.0f, -29.0f));
+		model = glm::scale(model, glm::vec3(11.5f, 0.2f, 2.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+		model = glm::translate(temp, glm::vec3(0.1f, 0.0f, -34.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 12.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+		model = glm::translate(temp, glm::vec3(3.0f, 0.0f, -39.85f));
+		model = glm::scale(model, glm::vec3(6.0f, 0.2f, 0.3f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+
+		model = glm::mat4(1.0f);
+		temp = glm::translate(model, glm::vec3(-5.0f, 2.6f, 0.0f));
+		model = glm::translate(temp, glm::vec3(19.85f, 0.0f, -25.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.2f, 10.0f));
+		shader.setMat4("model", model);
+		shader.setVec3("aColor", 1.0f, 1.0f, 1.0f);
+		techo.Draw(shader);
+
+
+		//Skybox
+
+		skyboxShader.use();
+		skybox.Draw(skyboxShader, view, projection, camera);
+		
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
 		if (deltaTime < LOOP_TIME)
@@ -2563,6 +2575,26 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 
 	}
 
+	//To play KeyFrame animation 
+	if (key == GLFW_KEY_P && action == GLFW_PRESS)
+	{
+		if (play == false && (FrameIndex > 1))
+		{
+			std::cout << "Play animation" << std::endl;
+			resetElements();
+			//First Interpolation				
+			interpolation();
+
+			play = true;
+			playIndex = 0;
+			i_curr_steps = 0;
+		}
+		else
+		{
+			play = false;
+			std::cout << "Not enough Key Frames" << std::endl;
+		}
+	}
 
 	//To Save a KeyFrame
 	if (key == GLFW_KEY_L && action == GLFW_PRESS)
@@ -2608,3 +2640,12 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.ProcessMouseScroll(yoffset);
 }
+
+
+/*
+		display(projection, view, staticShader, animShader, skyboxShader, skybox, pastoExt, pared_ext, ventana, bath, garage, jardin, lavado, maderablanca, pared_interior, pasto, suelo, techo,
+			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer, panel, wc, banera, lavamanos, closet,
+			puerta, piscina, cancel1, cancel2, lampara, pant, esc1, silla
+			, camaJ, camaS, camaA
+		);
+		*/
