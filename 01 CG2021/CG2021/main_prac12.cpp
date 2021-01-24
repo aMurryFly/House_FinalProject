@@ -47,11 +47,17 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(0.0f, 5.0f, 10.0f));
+float globalPosX = 0.0f;
+float globalPosY = 5.0f;
+float globalPosZ = 10.0;
+
+
+Camera camera(glm::vec3(globalPosX, globalPosY, globalPosZ));
 float MovementSpeed = 0.1f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
+bool blockMovCam = false;
 
 // timing
 const int FPS = 60;
@@ -114,8 +120,6 @@ FRAME KeyFrame[MAX_FRAMES];
 int FrameIndex = 6;			//introducir datos
 bool play = false;
 int playIndex = 0;
-
-
 
 
 
@@ -323,10 +327,12 @@ void animate(void)
 
 }
 
-void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
-	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo, Model palm, Model carro, Model cocina, Model paredv1, Model paredv2,
-	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel, Model camaJ, Model camaS, Model camaA,Model wc, Model banera, Model lavamanos, Model closet, Model puerta, Model piscina, Model cancel1, Model cancel2,Model lampara,
-	Model pant, Model esc1, Model silla)
+void display(glm::mat4 projection, glm::mat4 view, Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
+	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo,  Model carro, Model cocina, Model paredv1, Model paredv2,
+	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel,Model wc, Model banera, Model lavamanos, Model closet, Model puerta, Model piscina, Model cancel1, Model cancel2,Model lampara,
+	Model pant, Model esc1, Model silla
+	, Model camaJ, Model camaS, Model camaA
+)
 
 {
 	shader.use();
@@ -358,8 +364,8 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 tmp = glm::mat4(1.0f);
 	// view/projection transformations
-	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 5.0f, 500.0f);
-	glm::mat4 view = camera.GetViewMatrix();
+	//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 5.0f, 500.0f);
+	//glm::mat4 view = camera.GetViewMatrix();
 	shader.setMat4("projection", projection);
 	shader.setMat4("view", view);
 
@@ -391,12 +397,12 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	shader.setMat4("projection", projection);
 
 	//PERSONAJES
-	//Remember to activate the shader with the animation
+
 	/*
 	animShader.use();
 	animShader.setMat4("projection", projection);
 	animShader.setMat4("view", view);
-
+	
 	animShader.setVec3("material.specular", glm::vec3(0.5f));
 	animShader.setFloat("material.shininess", 32.0f);
 	animShader.setVec3("light.ambient", ambientColor);
@@ -405,22 +411,15 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	animShader.setVec3("light.direction", lightDirection);
 	animShader.setVec3("viewPos", camera.Position);
 
-
-	ModelAnim yasuo("resources/objects/personajes/yasuo/yasuo4.fbx");
+	ModelAnim yasuo("resources/personajes/yasuo/yasuothd2.fbx");
 	yasuo.initShaders(animShader.ID);
-
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(10.0f, -0.4f, -38.0f));
 	model = glm::scale(model, glm::vec3(0.005f));
 	animShader.setMat4("model", model);
-	yasuo.Draw(animShader);
-	*/
-
-
-
-
-
+	yasuo.Draw(animShader);*/
+	
 
 	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
 
@@ -450,64 +449,13 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	cancel2.Draw(shader);
 	glEnable(GL_BLEND);
 
-
+	
 	//Piscina
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(-1.9f, -2.5f, -33.0f));
 	model = glm::scale(model, glm::vec3(0.02f, 0.01f, 0.02f));
 	shader.setMat4("model", model);
 	piscina.Draw(shader);
-
-	//Palms
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(20.0f, -2.5f, -10.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	palm.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 5.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	palm.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(20.0f, -2.5f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	palm.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(20.0f, -2.5f, -5.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	palm.Draw(shader);
-
-	//palm right
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-10.0f, -2.5f, -10.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	palm.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-10.0f, -2.5f, 5.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	palm.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-10.0f, -2.5f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	palm.Draw(shader);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(-10.0f, -2.5f, -5.0f));
-	model = glm::scale(model, glm::vec3(0.2f));
-	shader.setMat4("model", model);
-	palm.Draw(shader);
-
 
 	//Carro
 	model = glm::mat4(1.0f);
@@ -582,6 +530,39 @@ void display(Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybo
 	//------------------------------------------------------------------Cocina - Comedor- Sala ----------------------------------------------------------------------------------------//
 
 	//LAMPARAS
+
+	/*FOR MUSIC AMBIENTE*/
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-2.7f, 1.4f, -24.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-1.8f, 1.4f, -24.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-0.9f, 1.4f, -24.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, 1.4f, -24.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.9f, 1.4f, -24.0f));
+	model = glm::scale(model, glm::vec3(0.03f));
+	shader.setMat4("model", model);
+	lampara.Draw(shader);
+
+
 
 	//cuarto murry
 	model = glm::mat4(1.0f);
@@ -2342,6 +2323,10 @@ int main()
 
 	//LOAD MODELS
 
+
+	//MODELS -PERSONAJES
+
+
 	//HOUSE MODELS - TEXTURES
 	Model pastoExt("resources/objects/Texplanes/pasto.fbx");
 	Model pared_ext("resources/objects/Texplanes/pared.fbx");
@@ -2366,7 +2351,7 @@ int main()
 	Model paredv2("resources/objects/Texplanes/paredvent.fbx");
 
 	//MODELS -EXTER
-	Model palm("resources/objects/exterior/palmera/palm.fbx");
+//	Model palm("resources/objects/exterior/palmera/palm.fbx");
 	Model carro("resources/objects/exterior/carro/carro.fbx");
 	Model street("resources/objects/exterior/calle/calle13.fbx");
 	Model panel("resources/objects/exterior/panel/panel.obj");
@@ -2386,15 +2371,10 @@ int main()
 
 
 	//Camas
-	
+	/**/
 	Model camaJ("resources/objects/rooms/camas/bed1.fbx");
 	Model camaS("resources/objects/rooms/camas/bed2.fbx");
 	Model camaA("resources/objects/rooms/camas/bed3.fbx");
-	
-	
-	//Model camaJ("");
-	//Model camaS("");
-	//Model camaA("");
 	
 
 	//Baños
@@ -2412,20 +2392,7 @@ int main()
 
 
 
-	//Inicialización de KeyFrames
-	/*
-	for (int i = 0; i < MAX_FRAMES; i++)
-	{
-		KeyFrame[i].posCarX = 0;
-		KeyFrame[i].posCarY = 0;
-		KeyFrame[i].posCarZ = 0;
-		KeyFrame[i].rotCarY = 0;
-		
-	}*/
-	/*----------------------------------------------------------------------------------*/
 	/*-------------------------ANIMACION CARRO--------------------------------------------*/
-
-
 	KeyFrame[0].posCarX = 11.0f;
 	KeyFrame[0].posCarY = -1.0f;
 	KeyFrame[0].posCarZ = -0.5f;
@@ -2456,8 +2423,14 @@ int main()
 	KeyFrame[5].posCarZ = -0.5f;
 	KeyFrame[5].rotCarY = 0.0f;
 
-	// draw in wireframe
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	/*-------------------------ANIMACION Y OBJETOS--------------------------------------------*/
+	ModelAnim yasuo("resources/personajes/yasuo/yasuothd.fbx");
+	yasuo.initShaders(animShader.ID);
+
+
+
+
 
 	// render loop
 	// -----------
@@ -2478,16 +2451,40 @@ int main()
 		// ------
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 tmp = glm::mat4(1.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 5.0f, 500.0f);
+		glm::mat4 view = camera.GetViewMatrix();
+		glm::vec3 lightColor = glm::vec3(1.0f);
+		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.75f);
 	
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
 
 
-		display(staticShader, animShader, skyboxShader ,skybox, pastoExt,pared_ext,ventana,bath,garage,jardin,lavado,maderablanca,pared_interior,pasto,suelo, techo, palm, 
-			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer,panel,camaJ,camaS,camaA,wc,banera,lavamanos, closet, 
-			puerta, piscina, cancel1, cancel2,lampara, pant, esc1, silla);
+		animShader.use();
+		animShader.setMat4("projection", projection);
+		animShader.setMat4("view", view);
+		animShader.setVec3("material.specular", glm::vec3(0.5f));
+		animShader.setFloat("material.shininess", 32.0f);
+		animShader.setVec3("light.ambient", ambientColor);
+		animShader.setVec3("light.diffuse", diffuseColor);
+		animShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		animShader.setVec3("light.direction", lightDirection);
+		animShader.setVec3("viewPos", camera.Position);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -4.0f, -20.0f));
+		model = glm::scale(model, glm::vec3(0.015f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		animShader.setMat4("model", model);
+		yasuo.Draw(animShader);
 
+		display(projection, view, staticShader, animShader, skyboxShader, skybox, pastoExt, pared_ext, ventana, bath, garage, jardin, lavado, maderablanca, pared_interior, pasto, suelo, techo,
+			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer, panel, wc, banera, lavamanos, closet,
+			puerta, piscina, cancel1, cancel2, lampara, pant, esc1, silla
+			, camaJ, camaS, camaA
+		);
 
 
 		deltaTime = SDL_GetTicks() - lastFrame; 
@@ -2500,9 +2497,7 @@ int main()
 		glfwPollEvents();
 	}
 
-	//sound();
 	skybox.Terminate();
-
 	glfwTerminate();
 	return 0;
 }
@@ -2513,13 +2508,18 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && blockMovCam == false)
 		camera.ProcessKeyboard(FORWARD, (float)deltaTime*0.005);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && blockMovCam == false)
 		camera.ProcessKeyboard(BACKWARD, (float)deltaTime*0.005);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS && blockMovCam == false)
 		camera.ProcessKeyboard(LEFT, (float)deltaTime*0.005);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS && blockMovCam == false)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime*0.005);
 
 	//For music start
@@ -2539,26 +2539,30 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 
 	}
 
-	//To play KeyFrame animation 
-	if (key == GLFW_KEY_P && action == GLFW_PRESS)
-	{
-		if (play == false && (FrameIndex > 1))
-		{
-			std::cout << "Play animation" << std::endl;
-			resetElements();
-			//First Interpolation				
-			interpolation();
-
-			play = true;
-			playIndex = 0;
-			i_curr_steps = 0;
-		}
-		else
-		{
-			play = false;
-			std::cout << "Not enough Key Frames" << std::endl;
-		}
+	//CAMERAS POSITIONS
+	if (key == GLFW_KEY_C && action == GLFW_PRESS ) { //MAIN CAMERA
+		camera.Position = glm::vec3(globalPosX,globalPosY,globalPosZ);
+		camera.MouseSensitivity = 0.7f;
+		blockMovCam = false;
 	}
+
+	if (key == GLFW_KEY_1 && action == GLFW_PRESS )	{
+		camera.Position = glm::vec3(-3.0f,2.0f,-39.0f);
+		camera.Yaw = 88.0f;
+		camera.Pitch = -10.0;
+		camera.MouseSensitivity = 0.00001;
+		blockMovCam = true;
+	}
+
+	if (key == GLFW_KEY_2 && action == GLFW_PRESS ) {
+		camera.Position = glm::vec3(14.0f, 2.0f, -12.0f);
+		camera.Yaw = 200.0f;
+		camera.Pitch = -10.0;
+		camera.MouseSensitivity = 0.00001;
+		blockMovCam = true;
+
+	}
+
 
 	//To Save a KeyFrame
 	if (key == GLFW_KEY_L && action == GLFW_PRESS)
