@@ -69,8 +69,13 @@ double	deltaTime = 0.0f,
 glm::vec3 lightPosition(0.0f, 4.0f, -10.0f);
 glm::vec3 lightDirection(0.0f, -1.0f, -1.0f);
 
-
-
+//Para rgb house
+glm::vec3 lightPositionRGB_blue(-1.5f, 2.0f, -21.5f);
+glm::vec3 lightPositionRGB_red(1.5f, 2.0f, -21.5f);
+float turnLightsRGB = 5.0f;
+bool lightsON = false; // inicia concierto <3
+bool edoLightRed = true;
+bool edoLightAzul = true;
 
 //Keyframes (Manipulación y dibujo)
 float	posCarX = 11.0f,
@@ -162,11 +167,55 @@ void sound() {
 		bool played = PlaySound("more.wav", NULL, SND_LOOP | SND_ASYNC);
 		cout << "Ambient:" << played << endl;
 		soundon = false;
+
 	}
 }
 
 void animate(void)
 {
+	if (lightsON) {
+		turnLightsRGB = 0.5;
+		//FOCO ROJO
+		switch (edoLightRed) {
+			case true:
+				lightPositionRGB_red.x -= 0.1;
+				if (lightPositionRGB_red.x < -1.5) {
+					edoLightRed = false;
+				}
+			break;
+
+			case false:
+				lightPositionRGB_red.x += 0.1;
+				if (lightPositionRGB_red.x > 1.5) {
+					edoLightRed = true;
+				}
+			break;
+
+			default:
+				lightPositionRGB_red.x = lightPositionRGB_red.x;
+		}
+
+		switch (edoLightAzul){
+			case true:
+				lightPositionRGB_blue.x += 0.1;
+				if (lightPositionRGB_blue.x > 1.5) {
+					edoLightAzul = false;
+				}
+				break;
+
+			case false:
+				lightPositionRGB_blue.x -= 0.1;
+				if (lightPositionRGB_blue.x < -1.5) {
+					edoLightAzul = true;
+				}
+				break;
+
+			default:
+				lightPositionRGB_blue.x = lightPositionRGB_blue.x;
+		}
+		
+	}
+		
 	//-------------------------------------Animación de Carro
 	if (play)
 	{
@@ -326,65 +375,6 @@ void animate(void)
 
 
 }
-/*
-void display(glm::mat4 projection, glm::mat4 view, Shader shader, Shader animShader, Shader SkyboxShader, Skybox skybox, Model pastoExt, Model pared, Model ventana, Model bath,
-	Model garage, Model jardin, Model lavado, Model maderablanca, Model pared_interior, Model pasto, Model suelo, Model techo,  Model carro, Model cocina, Model paredv1, Model paredv2,
-	Model street, Model lavadora, Model cameraObj, Model ttv, Model sofa, Model mesaComer, Model panel,Model wc, Model banera, Model lavamanos, Model closet, Model puerta, Model piscina, Model cancel1, Model cancel2,Model lampara,
-	Model pant, Model esc1, Model silla
-	, Model camaJ, Model camaS, Model camaA
-)
-
-{
-	
-	//Enable Shader
-	shader.use();
-
-	
-
-
-	shader.setMat4("projection", projection);
-	shader.setMat4("view", view);
-
-	// pass them to the shaders
-	shader.setVec3("viewPos", camera.Position);
-	shader.setMat4("model", model);
-	shader.setMat4("view", view);
-	shader.setMat4("projection", projection);
-
-	shader.setMat4("model", model);
-	shader.setMat4("view", view);
-	shader.setMat4("projection", projection);
-
-	//PERSONAJES
-
-
-	animShader.use();
-	animShader.setMat4("projection", projection);
-	animShader.setMat4("view", view);
-	
-	animShader.setVec3("material.specular", glm::vec3(0.5f));
-	animShader.setFloat("material.shininess", 32.0f);
-	animShader.setVec3("light.ambient", ambientColor);
-	animShader.setVec3("light.diffuse", diffuseColor);
-	animShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-	animShader.setVec3("light.direction", lightDirection);
-	animShader.setVec3("viewPos", camera.Position);
-
-	ModelAnim yasuo("resources/personajes/yasuo/yasuothd2.fbx");
-	yasuo.initShaders(animShader.ID);
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(10.0f, -0.4f, -38.0f));
-	model = glm::scale(model, glm::vec3(0.005f));
-	animShader.setMat4("model", model);
-	yasuo.Draw(animShader);
-	
-
-	//------------------------------------------------------------------Objetos del exterior-----------------------------------------------------------------------------------------//
-
-	
-}
-*/
 
 int main()
 {
@@ -579,7 +569,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		shader.use();
-		//Setup Advanced Lights
+		//GLOBAL LIGHT FOR NIGHT AN DAY TRANSITION :D 
 		shader.setVec3("viewPos", camera.Position);
 		shader.setVec3("dirLight.direction", lightDirection);
 		shader.setVec3("dirLight.ambient", glm::vec3(day, 0.2f, night));
@@ -602,7 +592,55 @@ int main()
 		shader.setFloat("pointLight[1].linear", 0.009f);
 		shader.setFloat("pointLight[1].quadratic", 0.032f);
 
+
+		//FOR LIGHT ON MUSIC 7u7r
+		shader.setVec3("pointLight[2].position", lightPositionRGB_blue);
+		shader.setVec3("pointLight[2].ambient", glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[2].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[2].specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setFloat("pointLight[2].constant", turnLightsRGB);
+		shader.setFloat("pointLight[2].linear", 0.009f);
+		shader.setFloat("pointLight[2].quadratic", 0.032f);
+
+		shader.setVec3("pointLight[3].position", lightPositionRGB_red);
+		shader.setVec3("pointLight[3].ambient", glm::vec3(0.0f, 0.0f, 1.0f));
+		shader.setVec3("pointLight[3].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[3].specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setFloat("pointLight[3].constant", turnLightsRGB);
+		shader.setFloat("pointLight[3].linear", 0.009f);
+		shader.setFloat("pointLight[3].quadratic", 0.032f);
+
+		//LUZ PARA LOS CUARTOS
+		//Murry
+		shader.setVec3("pointLight[4].position", glm::vec3(0.0f, 1.4f, -4.0f));
+		shader.setVec3("pointLight[4].ambient", glm::vec3(0.0f, 0.0f, 1.0f));
+		shader.setVec3("pointLight[4].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[4].specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setFloat("pointLight[4].constant", 0.7f);
+		shader.setFloat("pointLight[4].linear", 0.09f);
+		shader.setFloat("pointLight[4].quadratic", 0.32f);
+
+		//Sergio
+		shader.setVec3("pointLight[5].position", glm::vec3(4.5f, 1.4f, -36.9f));
+		shader.setVec3("pointLight[5].ambient", glm::vec3(0.5f, 0.5f, 0.0f));
+		shader.setVec3("pointLight[5].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[5].specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setFloat("pointLight[5].constant", 0.7f);
+		shader.setFloat("pointLight[5].linear", 0.09f);
+		shader.setFloat("pointLight[5].quadratic", 0.32f);
+
+
+		//Joaquín
+		shader.setVec3("pointLight[6].position", glm::vec3(11.0f, 1.4f, -36.9f));
+		shader.setVec3("pointLight[6].ambient", glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[6].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setVec3("pointLight[6].specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader.setFloat("pointLight[6].constant", 0.7f);
+		shader.setFloat("pointLight[6].linear", 0.09f);
+		shader.setFloat("pointLight[6].quadratic", 0.32f);
+
 		shader.setFloat("material_shininess", 32.0f);
+
 
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 tmp = glm::mat4(1.0f);
@@ -618,38 +656,37 @@ int main()
 		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.75f);
 
 		//AnimShaders
+			animShader.use();
+			animShader.setMat4("projection", projection);
+			animShader.setMat4("view", view);
 
-		animShader.use();
-		animShader.setMat4("projection", projection);
-		animShader.setMat4("view", view);
-
-		animShader.setVec3("material.specular", glm::vec3(0.5f));
-		animShader.setFloat("material.shininess", 32.0f);
-		animShader.setVec3("light.ambient", ambientColor);
-		animShader.setVec3("light.diffuse", diffuseColor);
-		animShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-		animShader.setVec3("light.direction", lightDirection);
-		animShader.setVec3("viewPos", camera.Position);
+			animShader.setVec3("material.specular", glm::vec3(0.5f));
+			animShader.setFloat("material.shininess", 32.0f);
+			animShader.setVec3("light.ambient", ambientColor);
+			animShader.setVec3("light.diffuse", diffuseColor);
+			animShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+			animShader.setVec3("light.direction", lightDirection);
+			animShader.setVec3("viewPos", camera.Position);
 
 		//Yasuo
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -2.3f, -21.5f)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0.013f));	// it's a bit too big for our scene, so scale it down
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -2.3f, -21.5f)); 
+		model = glm::scale(model, glm::vec3(0.013f));	
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", model);
 		yasuo.Draw(animShader);
 
 		//Xayah
 
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.5f, -2.3f, -24.0f)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0.018f));	// it's a bit too big for our scene, so scale it down
-		model = glm::rotate(model, glm::radians(40.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.5f, -2.3f, -24.0f)); 
+		model = glm::scale(model, glm::vec3(0.018f));	
+		model = glm::rotate(model, glm::radians(220.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", model);
 		xayah.Draw(animShader);
 
 
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, -2.3f, -24.0f)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0.018f));	// it's a bit too big for our scene, so scale it down
-		model = glm::rotate(model, glm::radians(-40.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, -2.3f, -24.0f)); 
+		model = glm::scale(model, glm::vec3(0.018f));	
+		model = glm::rotate(model, glm::radians(-220.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", model);
 		soraka.Draw(animShader);
 
@@ -793,7 +830,20 @@ int main()
 		shader.setMat4("model", model);
 		lampara.Draw(shader);
 
+		/**/
+		//Cuarto Serch
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(4.5f, 1.4f, -36.9f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
 
+		//Cuarto Joaquin
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(11.0f, 1.4f, -36.9f));
+		model = glm::scale(model, glm::vec3(0.03f));
+		shader.setMat4("model", model);
+		lampara.Draw(shader);
 
 		//cuarto murry
 		model = glm::mat4(1.0f);
@@ -2535,8 +2585,10 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime*0.005);
 
 	//For music start
-	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
+		lightsON = true;
 		sound();
+	}
 
 	//Animación de Sillas.
 	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
@@ -2640,12 +2692,3 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.ProcessMouseScroll(yoffset);
 }
-
-
-/*
-		display(projection, view, staticShader, animShader, skyboxShader, skybox, pastoExt, pared_ext, ventana, bath, garage, jardin, lavado, maderablanca, pared_interior, pasto, suelo, techo,
-			carro, cocina, paredv1, paredv2, street, lavadora, cameraObj, ttv, sofa, mesaComer, panel, wc, banera, lavamanos, closet,
-			puerta, piscina, cancel1, cancel2, lampara, pant, esc1, silla
-			, camaJ, camaS, camaA
-		);
-		*/
