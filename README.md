@@ -28,7 +28,7 @@ Integrantes del equipo:
 
 - Para correr meramente el ejecutable darle click en el archivo CG2021 ubicado en ./01 CG2021/Debug
 
-- Video de funcionamiento y de uso [click here](https://youtu.be/i7WKWU9Ld1o)>
+- Video de funcionamiento y de uso [click here](https://youtu.be/i7WKWU9Ld1o)
 
 ## Documentación y links de referencia 
 
