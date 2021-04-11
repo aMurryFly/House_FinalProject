@@ -18,7 +18,7 @@ Integrantes del equipo:
 - Presentación del proyecto o [Pitch](https://youtu.be/ND7mIb6xAn8)
 
 
-## Manuales y resultados
+## Manuales y resultados 
 
 - Para compilar el proyecto consulte el manual de compilación [click here](https://github.com/aMurryFly/House_FinalProject/blob/main/manuales/Manual_Configuracion.pdf)
 
